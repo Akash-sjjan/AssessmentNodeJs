@@ -18,7 +18,7 @@ requiredEnv.forEach((variable) => {
 });
 
 const app = express();
-app.use(cors());  // Use the cors middleware
+app.use(cors()); // Use the cors middleware
 const port = process.env.PORT || 3000;
 
 // MongoDB models
