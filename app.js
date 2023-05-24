@@ -1,116 +1,172 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const fs = require('fs');
-const csv = require('csv-parser');
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const sgMail = require("@sendgrid/mail");
+const csvParser = require("csv-parser");
+const fs = require("fs");
+
 const app = express();
-const _ = require('lodash');
+const port = process.env.PORT || 3000;
 
-app.use(bodyParser.json());
+// MongoDB models
+const User = require("./models/User");
+const Question = require("./models/Question");
 
-let users = [];
-let questions = [];
+// Setting SendGrid API Key
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-// Read CSV file and populate the 'questions' array
-fs.createReadStream('questions.csv')
-    .pipe(csv())
-    .on('data', (row) => {
-        questions.push(row);
-    })
-    .on('end', () => {
-        console.log('CSV file successfully processed');
-    });
+app.use(express.json());
 
-// Validate token
-function validateToken(req, res, next) {
-    const authHeader = req.headers.authorization;
-    if (authHeader) {
-        const token = authHeader.split(' ')[1];
-        jwt.verify(token, 'SECRET_KEY', (err, user) => {
-            if (err) {
-                return res.sendStatus(403);
-            }
-            req.user = user;
-            next();
+// Connect to MongoDB
+mongoose
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Connected to MongoDB");
+
+    // After connecting to MongoDB, import questions from CSV file
+    fs.createReadStream("./questions.csv")
+      .pipe(csvParser())
+      .on("data", async (row) => {
+        // Create a new question with the data from the CSV row
+        const question = new Question({
+          question: row["Qustions"],
+          options: [
+            row["Option 1"],
+            row["Option 2"],
+            row["Option 3"],
+            row["Option 4"],
+          ],
+          correctAnswer: row["Correct Answer"],
         });
-    } else {
-        res.sendStatus(401);
-    }
+
+        // Save the question to MongoDB
+        await question.save();
+      })
+      .on("end", () => {
+        console.log("CSV file successfully processed");
+      });
+  })
+  .catch((err) => console.error("Could not connect to MongoDB", err));
+
+// Middleware to validate JWT token
+function validateToken(req, res, next) {
+  const authHeader = req.headers.authorization;
+  if (authHeader) {
+    const token = authHeader.split(" ")[1];
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+      if (err) {
+        return res.sendStatus(403);
+      }
+      req.user = user;
+      next();
+    });
+  } else {
+    res.sendStatus(401);
+  }
 }
 
-// POST API for user signup
-app.post('/signup', async (req, res) => {
-    // validate request body
-    if (!req.body.email || !req.body.password || !req.body.confirmPassword) {
-        return res.status(400).json({ message: "Email and Password are required." });
-    }
+app.post("/signup", async (req, res) => {
+  const hashedPassword = await bcrypt.hash(req.body.password, 10);
+  const user = new User({
+    email: req.body.email,
+    password: hashedPassword,
+    phone: req.body.phone,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+  });
 
-    if (req.body.password !== req.body.confirmPassword) {
-        return res.status(400).json({ message: "Passwords do not match." });
-    }
-
-    // hash the password
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-
-    // add the user to the 'database'
-    users.push({
-        email: req.body.email,
-        password: hashedPassword,
-        phone: req.body.phone,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName
-    });
-
-    res.json({ message: "User signed up successfully" });
+  user
+    .save()
+    .then(() => res.json({ message: "User signed up successfully" }))
+    .catch((err) => res.status(400).json({ error: err.message }));
 });
 
-// POST API for user login
-app.post('/login', async (req, res) => {
-    const user = users.find(u => u.email === req.body.email);
-
-    if (user && await bcrypt.compare(req.body.password, user.password)) {
-        // Create a new token with the username in the payload
-        const token = jwt.sign({ email: user.email }, 'SECRET_KEY');
-        res.json({ message: "User logged in successfully", token: token });
-    } else {
-        res.json({ message: "Invalid credentials" });
-    }
+app.post("/login", async (req, res) => {
+  const user = await User.findOne({ email: req.body.email });
+  if (user && (await bcrypt.compare(req.body.password, user.password))) {
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+    res.json({ message: "User logged in successfully", token: token });
+  } else {
+    res.json({ message: "Invalid credentials" });
+  }
 });
 
-// GET API to return 15 random questions
-app.get('/questions', validateToken, (req, res) => {
-    let id = 0; // initialize id
-    const questionsArray = [];
-    fs.createReadStream('./questions.csv')
-    .pipe(csv())
-    .on('data', (row) => {
-        questionsArray.push({
-            id: ++id,  // increment id for each question
-            question: row['Qustions'].trim(),
-            options: [
-                row['Option 1'].trim(),
-                row['Option 2'].trim(),
-                row['Option 3'].trim(),
-                row['Option 4'].trim()
-            ]
+app.get("/questions", validateToken, async (req, res) => {
+  // Get all questions from the database excluding the correctAnswer field
+  const allQuestions = await Question.find().select("-correctAnswer");
+
+  // Randomly shuffle the array of questions
+  const shuffledQuestions = allQuestions.sort(() => 0.5 - Math.random());
+
+  // Get the first 25 questions from the shuffled array
+  const selectedQuestions = shuffledQuestions.slice(0, 25);
+
+  // Return the selected questions
+  res.json(selectedQuestions);
+});
+
+app.post("/answer", validateToken, async (req, res) => {
+    try {
+      const user = await User.findById(req.user._id);
+      const answers = req.body;
+      let score = 0;
+  
+      for (let questionId in answers) {
+        try {
+          const question = await Question.findById(questionId);
+          if (question && question.correctAnswer === answers[questionId].choosenAnswer) {
+            score++;
+          }
+        } catch (error) {
+          // This will catch any errors during question lookup.
+          console.error(`Error finding question with id ${questionId}: ${error.message}`);
+        }
+      }
+  
+      const email = {
+        to: "akashsajjan4@gmail.com",
+        from: "akash.sajjan@cognitiveclouds.com",
+        subject: "Quiz Result",
+        text: `${user.firstName} ${user.lastName} has scored ${score} marks`,
+      };
+  
+      sgMail
+        .send(email)
+        .then(() => {
+          res.status(200).json({
+            success: true,
+            message: "Email sent successfully!",
+            score: score,
+            firstName: user.firstName,
+            lastName: user.lastName,
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+          if (error.response) {
+            console.error(error.response.body);
+          }
+          res.status(500).json({
+            success: false,
+            message: "An error occurred while trying to send the email",
+          });
         });
-    })
-    .on('end', () => {
-        const shuffled = _.shuffle(questionsArray);
-        const selected = _.slice(shuffled, 0, 15);
-        res.json(selected);
-    });
-});
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        success: false,
+        message: "An unexpected error occurred",
+      });
+    }
+  });
+  
+  
 
-
-// POST API to accept answered option
-app.post('/answer', validateToken, (req, res) => {
-    const { question, answeredOption } = req.body;
-    // Do something with the answered option
-    res.json({ message: 'Answer received.' });
-});
-
-app.listen(3000, () => {
-    console.log('Server is listening on port 3000...');
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
