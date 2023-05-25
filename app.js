@@ -239,6 +239,57 @@ app.post("/answer", validateToken, async (req, res) => {
   }
 });
 
+function generatePassword() {
+    let password = "";
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789$#@!";
+    for (let i = 0; i < 10; i++) {
+        password += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return password;
+}
+
+app.post("/createuser", async (req, res) => {
+    try {
+      const createdUsers = [];
+      for (let i = 0; i < 20; i++) {
+        const uniqueNumber = Math.floor(1000 + Math.random() * 9000);
+  
+        const email = `User${uniqueNumber}`;
+        const password = generatePassword();
+        const firstName = `User${uniqueNumber}`;
+  
+        const phone = "1234567890";
+        const lastName = "CC";
+  
+        // Hash password and create user
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = new User({
+          email,
+          password: hashedPassword,
+          phone,
+          firstName,
+          lastName,
+        });
+  
+        const savedUser = await user.save();
+        const userObject = savedUser.toObject();  // Convert document to object
+        delete userObject.password;  // Remove hashed password
+  
+        userObject.password = password; // Add plain password
+  
+        createdUsers.push(userObject);
+      }
+  
+      res.json({ message: "20 users created successfully", users: createdUsers });
+    } catch (error) {
+      res.status(500).json({ message: "Error creating users", error: error });
+    }
+  });
+  
+  
+  
+  
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
