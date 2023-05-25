@@ -36,8 +36,16 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => {
+  .then(async () => {
     console.log("Connected to MongoDB");
+
+    // Clear the Question collection before importing new data
+    try {
+      await Question.deleteMany({});
+      console.log("Questions cleared from MongoDB");
+    } catch (err) {
+      console.error("Could not clear questions from MongoDB", err);
+    }
 
     // Import questions from CSV file if file exists
     if (fs.existsSync("./questions.csv")) {
