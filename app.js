@@ -86,39 +86,39 @@ function validateToken(req, res, next) {
   }
 }
 
-app.post("/signup", async (req, res) => {
-  const { email, password, phone, firstName, lastName } = req.body;
+// app.post("/signup", async (req, res) => {
+//   const { email, password, phone, firstName, lastName } = req.body;
 
-  // Validate request body
-  if (!email || !password || !phone || !firstName || !lastName) {
-    return res.status(400).json({ error: "All fields are required" });
-  }
+//   // Validate request body
+//   if (!email || !password || !phone || !firstName || !lastName) {
+//     return res.status(400).json({ error: "All fields are required" });
+//   }
 
-  // Check if user with given email already exists
-  const existingUser = await User.findOne({ email });
-  if (existingUser) {
-    return res
-      .status(400)
-      .json({ error: "User with given email already exists" });
-  }
+//   // Check if user with given email already exists
+//   const existingUser = await User.findOne({ email });
+//   if (existingUser) {
+//     return res
+//       .status(400)
+//       .json({ error: "User with given email already exists" });
+//   }
 
-  // Hash password and create user
-  try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({
-      email,
-      password: hashedPassword,
-      phone,
-      firstName,
-      lastName,
-    });
+//   // Hash password and create user
+//   try {
+//     const hashedPassword = await bcrypt.hash(password, 10);
+//     const user = new User({
+//       email,
+//       password: hashedPassword,
+//       phone,
+//       firstName,
+//       lastName,
+//     });
 
-    await user.save();
-    res.json({ message: "User signed up successfully" });
-  } catch (error) {
-    res.status(500).json({ error: "Error creating user" });
-  }
-});
+//     await user.save();
+//     res.json({ message: "User signed up successfully" });
+//   } catch (error) {
+//     res.status(500).json({ error: "Error creating user" });
+//   }
+// });
 
 app.post("/login", async (req, res) => {
   const { email, password, nickname } = req.body;
