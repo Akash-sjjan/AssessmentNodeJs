@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const sgMail = require("@sendgrid/mail");
 const csvParser = require("csv-parser");
 const fs = require("fs");
+const file = require("./AssessQuestions.js");
 
 // Required Environment Variables
 const requiredEnv = ["MONGODB_URI", "SENDGRID_API_KEY", "JWT_SECRET", "PORT"];
@@ -47,39 +48,27 @@ mongoose
       console.error("Could not clear questions from MongoDB", err);
     }
 
-    // Import questions from CSV file if file exists
-    if (fs.existsSync("./questions.csv")) {
-      fs.createReadStream("./questions.csv")
-        .pipe(csvParser())
-        .on("data", async (row) => {
-          // Create a new question with the data from the CSV row
-          const question = new Question({
-            question: row["Questions"],
-            options: [
-              row["Option 1"],
-              row["Option 2"],
-              row["Option 3"],
-              row["Option 4"],
-            ],
-            correctAnswer: row["Correct Answer"],
-          });
-
-          // Save the question to MongoDB
-          try {
-            await question.save();
-          } catch (error) {
-            console.error(`Error saving question: ${error}`);
-          }
-        })
-        .on("end", () => {
-          console.log("CSV file successfully processed");
+    // Import questions from Assessment object
+    try {
+      for (const item of file.AssessQuestions) {
+        const question = new Question({
+          question: item.question,
+          options: item.options,
+          correctAnswer: item.correctAnswer,
+          code: item.code,
+          type: item.type,
         });
-    } else {
-      console.log("CSV file not found. No questions were imported.");
+
+        console.log(question);
+        await question.save();
+      }
+
+      console.log("Assessment questions successfully processed");
+    } catch (error) {
+      console.error(`Error saving question: ${error}`);
     }
   })
   .catch((err) => console.error("Could not connect to MongoDB", err));
-
 // Middleware to validate JWT token
 function validateToken(req, res, next) {
   const authHeader = req.headers.authorization;
@@ -132,7 +121,7 @@ app.post("/signup", async (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, nickname } = req.body;
   const user = await User.findOne({ email });
 
   if (!user) {
@@ -146,6 +135,10 @@ app.post("/login", async (req, res) => {
   }
 
   if (await bcrypt.compare(password, user.password)) {
+    // Update the user's nickname
+    user.nickname = nickname;
+    await user.save();
+
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h", // Token Expiry set to 1 hour
     });
@@ -156,16 +149,43 @@ app.post("/login", async (req, res) => {
 });
 
 app.get("/questions", validateToken, async (req, res) => {
-  const allQuestions = await Question.find().select("-correctAnswer");
+  const questionType = req.query.questionType;
 
-  if (!allQuestions.length) {
-    return res.status(404).json({ error: "No questions found" });
+  if (!questionType) {
+    return res.status(400).json({ error: "QuestionType is required" });
   }
 
-  const shuffledQuestions = allQuestions.sort(() => 0.5 - Math.random());
-  const selectedQuestions = shuffledQuestions.slice(0, 25);
+  let questionsToSend = [];
 
-  res.json(selectedQuestions);
+  const codeQuestions = await Question.find({
+    type: questionType,
+    code: { $ne: "" },
+  }).select("-correctAnswer");
+  questionsToSend = questionsToSend.concat(
+    codeQuestions.sort(() => 0.5 - Math.random()).slice(0, 3)
+  );
+
+  if (questionType === "ReactNative" || questionType === "ReactJs") {
+    const tsQuestions = await Question.find({ type: "TypeScript" }).select(
+      "-correctAnswer"
+    );
+    questionsToSend = questionsToSend.concat(
+      tsQuestions.sort(() => 0.5 - Math.random()).slice(0, 8)
+    );
+  }
+
+  const remainingQuestions = await Question.find({
+    type: questionType,
+    code: "",
+  }).select("-correctAnswer");
+  questionsToSend = questionsToSend.concat(
+    remainingQuestions.sort(() => 0.5 - Math.random()).slice(0, 14)
+  );
+
+  // Shuffle all the questions together
+  questionsToSend = questionsToSend.sort(() => 0.5 - Math.random());
+
+  res.json(questionsToSend);
 });
 
 app.post("/answer", validateToken, async (req, res) => {
@@ -240,55 +260,54 @@ app.post("/answer", validateToken, async (req, res) => {
 });
 
 function generatePassword() {
-    let password = "";
-    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789$#@!";
-    for (let i = 0; i < 10; i++) {
-        password += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    return password;
+  let password = "";
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789$#@!";
+  for (let i = 0; i < 10; i++) {
+    password += characters.charAt(
+      Math.floor(Math.random() * characters.length)
+    );
+  }
+  return password;
 }
 
 app.post("/createuser", async (req, res) => {
-    try {
-      const createdUsers = [];
-      for (let i = 0; i < 20; i++) {
-        const uniqueNumber = Math.floor(1000 + Math.random() * 9000);
-  
-        const email = `User${uniqueNumber}`;
-        const password = generatePassword();
-        const firstName = `User${uniqueNumber}`;
-  
-        const phone = "1234567890";
-        const lastName = "CC";
-  
-        // Hash password and create user
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const user = new User({
-          email,
-          password: hashedPassword,
-          phone,
-          firstName,
-          lastName,
-        });
-  
-        const savedUser = await user.save();
-        const userObject = savedUser.toObject();  // Convert document to object
-        delete userObject.password;  // Remove hashed password
-  
-        userObject.password = password; // Add plain password
-  
-        createdUsers.push(userObject);
-      }
-  
-      res.json({ message: "20 users created successfully", users: createdUsers });
-    } catch (error) {
-      res.status(500).json({ message: "Error creating users", error: error });
+  try {
+    const createdUsers = [];
+    for (let i = 0; i < 20; i++) {
+      const uniqueNumber = Math.floor(1000 + Math.random() * 9000);
+
+      const email = `User${uniqueNumber}`;
+      const password = generatePassword();
+      const firstName = `User${uniqueNumber}`;
+
+      const phone = "1234567890";
+      const lastName = "CC";
+
+      // Hash password and create user
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const user = new User({
+        email,
+        password: hashedPassword,
+        phone,
+        firstName,
+        lastName,
+      });
+
+      const savedUser = await user.save();
+      const userObject = savedUser.toObject(); // Convert document to object
+      delete userObject.password; // Remove hashed password
+
+      userObject.password = password; // Add plain password
+
+      createdUsers.push(userObject);
     }
-  });
-  
-  
-  
-  
+
+    res.json({ message: "20 users created successfully", users: createdUsers });
+  } catch (error) {
+    res.status(500).json({ message: "Error creating users", error: error });
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
