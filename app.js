@@ -248,8 +248,8 @@ app.post("/answer", validateToken, async (req, res) => {
     const email = {
       to: ["hr@cognitiveclouds.com", "praveen@cognitiveclouds.com"],
       from: "assessment@cognitiveclouds.com",
-      subject: `${user.firstName} ${user.lastName} - React Native MCQ Test Result`,
-      html: `${user.firstName} ${user.lastName} has scored ${score}/${count}. Here are the responses given by ${user.firstName}: ${answersTable}`,
+      subject: ` ${user.nickname} - React Native MCQ Test Result`,
+      html: `${user.nickname} has scored ${score}/${count}. Here are the responses given by ${user.firstName}: ${answersTable}`,
     };
 
     sgMail
