@@ -556,6 +556,117 @@ const Assessment = [
   />`,
     type: "ReactNative",
   },
+  {
+    question:
+      "Consider the following code snippet:\n In the snippet above, what does flexDirection: 'column' do?",
+    options: [
+      "Arranges the items horizontally",
+      "Arranges the items vertically",
+      "Centers the items",
+      "Justifies the items",
+    ],
+    correctAnswer: "Arranges the items vertically",
+    code: `<View style={{ flexDirection: 'column' }}>
+    <Text>Item 1</Text>
+    <Text>Item 2</Text>
+    <Text>Item 3</Text>
+  </View>`,
+    type: "ReactNative",
+  },
+  {
+    question:
+      "Consider the following code snippet:\n What does onChangeText do in this snippet?",
+    options: [
+      "It sets the value of 'TextInput' to the state",
+      "It changes the state whenever 'TextInput' changes",
+      "It changes the value of 'TextInput' whenever the state changes",
+      "It updates the UI whenever the state changes",
+    ],
+    correctAnswer: "It changes the state whenever 'TextInput' changes",
+    code: `<TextInput onChangeText={(text) => this.setState({input: text})} />`,
+    type: "ReactNative",
+  },
+  {
+    question:
+      "Consider the following code snippet:\n What is the correct way to update the 'name' property of the state object, without altering the 'age' property?",
+    options: [
+      `setState({ name: "Doe" })`,
+      `setState({ name: "Doe", age: state.age })`,
+      `setState(prevState => ({ ...prevState, name: "Doe" }))`,
+      `setState({ ...state, name: "Doe" })`,
+    ],
+    correctAnswer: `setState(prevState => ({ ...prevState, name: "Doe" }))`,
+    code: `const [state, setState] = React.useState({ name: "John", age: 30 });`,
+    type: "ReactNative",
+  },
+  {
+    question:
+      `Consider the following code snippet:\n What does 'barStyle="light-content"' do in this StatusBar component?`,
+    options: [
+      "Changes the color of the status bar text to light",
+      "Changes the color of the status bar to light",
+      "Changes the color of the status bar text to dark",
+      "Changes the color of the status bar to dark",
+    ],
+    correctAnswer: "Changes the color of the status bar text to light",
+    code: `import { StatusBar } from 'react-native';
+
+    <StatusBar backgroundColor="blue" barStyle="light-content" />
+    `,
+    type: "ReactNative",
+  },
+  {
+    question:
+      `Consider the following code snippet:\n When will the "Cleanup function" message be logged to the console?`,
+    options: [
+      "When the component is first mounted",
+      "After every render",
+      "When the component is updated",
+      "When the component is unmounted",
+    ],
+    correctAnswer: "When the component is unmounted",
+    code: `useEffect(() => {
+      console.log('Effect executed');
+    
+      return () => {
+        console.log('Cleanup function');
+      }
+    }, []);`,
+    type: "ReactNative",
+  },
+  {
+    question:
+      "Consider the following code snippet:\n What is the purpose of useCallback in this case?",
+    options: [
+      "To prevent the function from being recreated on every render",
+      "To execute the function only when the component first renders",
+      "To delay the execution of the function until the next render",
+      "To run the function as a side effect of a state or props change",
+    ],
+    correctAnswer: "To prevent the function from being recreated on every render",
+    code: `const handler = useCallback(() => {
+      console.log('Button clicked');
+    }, []);`,
+    type: "ReactNative",
+  },
+  {
+    question:
+      "Consider the following code snippet:\n What does Alert.alert do in this snippet?",
+    options: [
+      "It creates a new button with the label 'You tapped the button!'",
+      "It changes the button's title to 'You tapped the button!' when the button is pressed",
+      "It displays an alert dialog with the message 'You tapped the button!' when the button is pressed",
+      "It logs the message 'You tapped the button!' to the console when the button is pressed",
+    ],
+    correctAnswer: "It displays an alert dialog with the message 'You tapped the button!' when the button is pressed",
+    code: `<Button
+    onPress={() => {
+      Alert.alert('You tapped the button!');
+    }}
+    title="Press Me"
+  />`,
+    type: "ReactNative",
+  },
 ];
 
 module.exports.AssessQuestions = Assessment;
