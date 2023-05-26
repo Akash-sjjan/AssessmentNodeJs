@@ -197,29 +197,39 @@ app.post("/answer", validateToken, async (req, res) => {
     const user = await User.findById(req.user._id);
     const answers = req.body;
     let score = 0;
+    let answeredQuestions = [];
 
-    for (let questionId in answers) {
-      try {
-        const question = await Question.findById(questionId);
-        if (
-          question &&
-          question.correctAnswer === answers[questionId].choosenAnswer
-        ) {
-          score++;
-        }
-      } catch (error) {
-        console.error(
-          `Error finding question with id ${questionId}: ${error.message}`
-        );
-        return res.status(500).json({ error: "Error processing answers" });
+    // get IDs of answered questions
+    const questionIds = Object.keys(answers);
+
+    // fetch only answered questions from the database
+    const allQuestions = await Question.find({ _id: { $in: questionIds } });
+
+    for (let question of allQuestions) {
+      let userAnswer = answers[question._id]
+        ? answers[question._id].choosenAnswer
+        : "No answer";
+      let isCorrect = false;
+      if (question.correctAnswer === userAnswer) {
+        score++;
+        isCorrect = true;
       }
+
+      // add question, answer, and correctness to the array
+      answeredQuestions.push({
+        question: question.question,
+        answer: userAnswer,
+        isCorrect: isCorrect,
+      });
     }
+
+    const answersTable = answeredQuestionsToHtmlTable(answeredQuestions);
 
     const email = {
       to: "akashsajjan4@gmail.com",
       from: "akash.sajjan@cognitiveclouds.com",
       subject: "Quiz Result",
-      text: `${user.firstName} ${user.lastName} has scored ${score} marks`,
+      html: `${user.firstName} ${user.lastName} has scored ${score} marks. Here are the answered questions: ${answersTable}`,
     };
 
     sgMail
@@ -258,6 +268,31 @@ app.post("/answer", validateToken, async (req, res) => {
     });
   }
 });
+
+function answeredQuestionsToHtmlTable(questions) {
+  let table =
+    '<table style="border: 1px solid black; border-collapse: collapse;">';
+  table +=
+    '<tr><th style="border: 1px solid black; padding: 5px;">Question</th><th style="border: 1px solid black; padding: 5px;">Answer</th><th style="border: 1px solid black; padding: 5px;">Correct</th></tr>';
+  for (let item of questions) {
+    table += "<tr>";
+    table +=
+      '<td style="border: 1px solid black; padding: 5px;">' +
+      item.question +
+      "</td>";
+    table +=
+      '<td style="border: 1px solid black; padding: 5px;">' +
+      item.answer +
+      "</td>";
+    table +=
+      '<td style="border: 1px solid black; padding: 5px;">' +
+      (item.isCorrect ? "Correct" : "Incorrect") +
+      "</td>";
+    table += "</tr>";
+  }
+  table += "</table>";
+  return table;
+}
 
 function generatePassword() {
   let password = "";
