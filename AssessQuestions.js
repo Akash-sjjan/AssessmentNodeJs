@@ -1,6 +1,6 @@
 const Assessment = [
   {
-    question: "Which programming language is used in React Native development?qwer",
+    question: "Which programming language is used in React Native development?",
     options: [
       "JavaScript",
       "Java",
@@ -649,7 +649,7 @@ const Assessment = [
   {
     question: "Virtual DOM creates a copy of the whole DOM object",
     options: ["TRUE", "FALSE"],
-    correctAnswer: "TRUE",
+    correctAnswer: "FALSE",
     code: "",
     type: "ReactNative",
   },
@@ -671,6 +671,579 @@ const Assessment = [
     correctAnswer: "can't be modified",
     code: "",
     type: "ReactNative",
+  },
+
+  {
+    question: "What is JSX in ReactJS?",
+    options: [
+      "A JavaScript extension for XML",
+      "A templating language for server-side rendering",
+      "A CSS preprocessor",
+      "A package manager for ReactJS",
+    ],
+    correctAnswer: "A JavaScript extension for XML",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question: "What is the virtual DOM in ReactJS?",
+    options: [
+      "A representation of the actual HTML DOM in memory",
+      "A lightweight version of the DOM for mobile devices",
+      "A JavaScript library for handling AJAX requests",
+      "A set of utility functions for manipulating DOM elements",
+    ],
+    correctAnswer: "A representation of the actual HTML DOM in memory",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question: "What is the purpose of the 'render' method in ReactJS?",
+    options: [
+      "To define the initial state of a component",
+      "To update the state of a component",
+      "To handle user input and trigger component updates",
+      "To render the component's UI based on its current state",
+    ],
+    correctAnswer: "To render the component's UI based on its current state",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question: "What is a state in ReactJS?",
+    options: [
+      "A set of predefined CSS styles",
+      "A function that returns HTML elements",
+      "A JavaScript object that stores data for a component",
+      "A lifecycle method that is automatically invoked by ReactJS",
+    ],
+    correctAnswer: "A JavaScript object that stores data for a component",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question: "What is the purpose of the 'props' in ReactJS?",
+    options: [
+      "To define the CSS styles for a component",
+      "To pass data from a parent component to a child component",
+      "To handle user input events in a component",
+      "To specify the routing configuration for a React application",
+    ],
+    correctAnswer: "To pass data from a parent component to a child component",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question:
+      "What is the difference between 'controlled' and 'uncontrolled' components in ReactJS?",
+    options: [
+      "Controlled components are written in JSX, while uncontrolled components use plain JavaScript",
+      "Controlled components manage their own state, while uncontrolled components rely on external sources of truth",
+      "Controlled components provide better performance, while uncontrolled components are easier to develop",
+      "Controlled components are rendered on the server, while uncontrolled components are rendered on the client",
+    ],
+    correctAnswer:
+      "Controlled components manage their own state, while uncontrolled components rely on external sources of truth",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question: "What is the purpose of the 'key' prop in ReactJS?",
+    options: [
+      "It is used to define the initial state of a component",
+      "It is used to uniquely identify elements in an array of components",
+      "It is used to handle user input events in a component",
+      "It is used to specify the default props for a component",
+    ],
+    correctAnswer:
+      "It is used to uniquely identify elements in an array of components",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question:
+      "What is the role of the 'componentDidMount' lifecycle method in ReactJS?",
+    options: [
+      "It is invoked when a component is about to be removed from the DOM",
+      "It is invoked after a component's render method has been called",
+      "It is invoked before a component's render method is called",
+      "It is invoked when a component's state or props are updated",
+    ],
+    correctAnswer:
+      "It is invoked after a component's render method has been called",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question: "What is the purpose of React Router in ReactJS?",
+    options: [
+      "It is used to manage the state of a React component",
+      "It is used to handle AJAX requests in a React application",
+      "It is used to provide client-side routing in a single-page application",
+      "It is used to style React components using CSS-in-JS",
+    ],
+    correctAnswer:
+      "It is used to provide client-side routing in a single-page application",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question: "What is the purpose of the 'setState' method in ReactJS?",
+    options: [
+      "To update the props of a component",
+      "To modify the state of a component",
+      "To define the lifecycle methods of a component",
+      "To handle routing in a React application",
+    ],
+    correctAnswer: "To modify the state of a component",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question:
+      "What is the significance of the 'shouldComponentUpdate' method in ReactJS?",
+    options: [
+      "It determines whether a component should be rendered or not",
+      "It defines the initial state of a component",
+      "It handles the rendering of child components",
+      "It triggers an update in the parent component",
+    ],
+    correctAnswer:
+      "It determines whether a component should be rendered or not",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question:
+      "What is the difference between functional components and class components in ReactJS?",
+    options: [
+      "Functional components are written in JSX, while class components are written in plain JavaScript",
+      "Functional components are stateless, while class components can have state and lifecycle methods",
+      "Functional components are more performant than class components",
+      "Functional components can only be used for simple UI rendering, while class components are used for complex logic",
+    ],
+    correctAnswer:
+      "Functional components are stateless, while class components can have state and lifecycle methods",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question:
+      "How can you pass data from a child component to a parent component in ReactJS?",
+    options: [
+      "By using the 'props' mechanism",
+      "By using the 'state' mechanism",
+      "By directly modifying the parent component's state",
+      "By using the 'context' API",
+    ],
+    correctAnswer: "By using the 'props' mechanism",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question:
+      "What is the purpose of the 'componentWillUnmount' lifecycle method in ReactJS?",
+    options: [
+      "It is invoked when a component is about to be removed from the DOM",
+      "It is invoked after a component's render method has been called",
+      "It is invoked before a component's render method is called",
+      "It is invoked when a component's state or props are updated",
+    ],
+    correctAnswer:
+      "It is invoked when a component is about to be removed from the DOM",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question: "What is the purpose of the 'Fragment' component in ReactJS?",
+    options: [
+      "It is used to define reusable component logic",
+      "It is used to handle asynchronous operations in a component",
+      "It is used to group multiple elements without adding extra nodes to the DOM",
+      "It is used to handle form input validation in a component",
+    ],
+    correctAnswer:
+      "It is used to group multiple elements without adding extra nodes to the DOM",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question:
+      "What is the purpose of the 'React Developer Tools' browser extension?",
+    options: [
+      "It is used to write React code in the browser",
+      "It is used to debug React components and inspect the component hierarchy",
+      "It is used to optimize the performance of React applications",
+      "It is used to automatically generate documentation for React components",
+    ],
+    correctAnswer:
+      "It is used to debug React components and inspect the component hierarchy",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question: "What is the purpose of the 'React.Fragment' syntax in JSX?",
+    options: [
+      "It is used to define reusable component logic",
+      "It is used to handle asynchronous operations in a component",
+      "It is used to group multiple elements without adding extra nodes to the DOM",
+      "It is used to handle form input validation in a component",
+    ],
+    correctAnswer:
+      "It is used to group multiple elements without adding extra nodes to the DOM",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question:
+      "What is the purpose of the 'React.memo' higher-order component in ReactJS?",
+    options: [
+      "It is used to memoize the results of expensive calculations in a component",
+      "It is used to handle component composition in React",
+      "It is used to handle state management in React",
+      "It is used to optimize the rendering performance of a component",
+    ],
+    correctAnswer:
+      "It is used to optimize the rendering performance of a component",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question: "What is the purpose of the 'useEffect' hook in ReactJS?",
+    options: [
+      "It is used to define the initial state of a functional component",
+      "It is used to handle user input events in a functional component",
+      "It is used to manage side effects and perform cleanup operations in a functional component",
+      "It is used to define the lifecycle methods of a functional component",
+    ],
+    correctAnswer:
+      "It is used to manage side effects and perform cleanup operations in a functional component",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question: "What is Webpack?",
+    options: [
+      "A JavaScript framework for building user interfaces",
+      "A package manager for managing dependencies in a project",
+      "A task runner for automating build processes",
+      "A module bundler for bundling JavaScript and other assets",
+    ],
+    correctAnswer: "A module bundler for bundling JavaScript and other assets",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question:
+      "When using React.lazy() to import a component, how should it be rendered?",
+    options: [
+      "By using the <React.lazy> component in the JSX markup",
+      "By calling the React.lazy() function directly in the render method",
+      "By wrapping it with the <Suspense> component and specifying a fallback",
+      "By using the React.renderLazyComponent() function provided by React",
+    ],
+    correctAnswer:
+      "By wrapping it with the <Suspense> component and specifying a fallback",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question: "How are hooks called in React?",
+    options: [
+      "They are called directly as function invocations within functional components.",
+      "They are called using this keyword within class components.",
+      "They are called using the use prefix, followed by the name of the hook (e.g., useEffect).",
+      "They are called using the React.use prefix, followed by the name of the hook (e.g., React.useEffect).",
+    ],
+    correctAnswer:
+      "They are called directly as function invocations within functional components.",
+    code: "",
+    type: "ReactJs",
+  },
+
+  {
+    question: "What is a brute force attack in the context of React?",
+    options: [
+      "A technique for optimizing the performance of React components.",
+      "A method for testing the security of React applications.",
+      "A malicious attempt to gain unauthorized access by systematically trying all possible combinations of inputs.",
+      "A strategy for handling large amounts of data in React state management.",
+    ],
+    correctAnswer:
+      "A malicious attempt to gain unauthorized access by systematically trying all possible combinations of inputs.",
+    code: "",
+    type: "ReactJs",
+  },
+
+  {
+    question: "What is a synthetic event in React?",
+    options: [
+      "An event that is generated by the browser's native event system and passed to React components.",
+      "An artificial event created by React to handle user interactions in a cross-browser compatible way.",
+      "An event triggered by React components to communicate with the underlying DOM.",
+      "An event that is exclusively used in React for handling form submissions.",
+    ],
+    correctAnswer:
+      "An artificial event created by React to handle user interactions in a cross-browser compatible way.",
+    code: "",
+    type: "ReactJs",
+  },
+
+  {
+    question:
+      "In ReactJS, which method is used to render JSX within a component?",
+    options: ["renderJSX()", "render()", "renderJS()", "JSX()"],
+    correctAnswer: "render()",
+    code: "",
+    type: "ReactJs",
+  },
+
+  {
+    question: "How do you conditionally render components in ReactJS?",
+    options: [
+      "Using the if-else statements within the JSX markup.",
+      "Using the for loop to iterate over an array of components.",
+      "Using the switch statement to select the appropriate component.",
+      "Using JavaScript expressions or ternary operators within the JSX markup.",
+    ],
+    correctAnswer:
+      "Using JavaScript expressions or ternary operators within the JSX markup.",
+    code: "",
+    type: "ReactJs",
+  },
+
+  {
+    question:
+      "How can you pass data from a parent component to a child component in ReactJS?",
+    options: [
+      "By using the parentData attribute within the child component.",
+      "By using the sendData method to pass data from parent to child.",
+      "By using the props mechanism to pass data as attributes.",
+      "By directly accessing the parent component's state from the child component.",
+    ],
+    correctAnswer: "By using the props mechanism to pass data as attributes.",
+    code: "",
+    type: "ReactJs",
+  },
+
+  {
+    question: "What is the purpose of the useState hook in ReactJS?",
+    options: [
+      "It is used to define the initial state of a functional component.",
+      "It is used to handle user input events in a functional component.",
+      "It is used to manage side effects and perform cleanup operations in a functional component.",
+      "It is used to update the state of a functional component.",
+    ],
+    correctAnswer: "It is used to update the state of a functional component.",
+    code: "",
+    type: "ReactJs",
+  },
+
+  {
+    question:
+      "How can you perform side effects in ReactJS functional components?",
+    options: [
+      "By using the useEffect hook.",
+      "By defining custom lifecycle methods within functional components.",
+      "By utilizing the useEffect method within a class component.",
+      "By directly modifying the DOM within the functional component.",
+    ],
+    correctAnswer: "By using the useEffect hook.",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question: "Numeric enums in React can be useful for:",
+    options: [
+      "Defining a set of constant values with string representations.",
+      "Assigning unique identifiers to React components.",
+      "Providing a way to represent a range of numerical values.",
+      "Mapping numerical values to corresponding labels or descriptions.",
+    ],
+    correctAnswer:
+      "Mapping numerical values to corresponding labels or descriptions.",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question:
+      "In React, which method is used to update the state of a component?",
+    options: ["setState()", "updateState()", "changeState()", "modifyState()"],
+    correctAnswer: "setState()",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question: "When does a React component re-render?",
+    options: [
+      "Whenever the state or props of the component change.",
+      "Only when the state of the component changes.",
+      "Only when the props of the component change.",
+      "React components never re-render.",
+    ],
+    correctAnswer: "Whenever the state or props of the component change.",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question: "What is the purpose of ReactDOMServer in React?",
+    options: [
+      "It is used to render React components on the server-side.",
+      "It is used to manipulate the DOM directly in React components.",
+      "It is used to manage the state and lifecycle methods of React components.",
+      "It is used to define the routing and navigation in React applications.",
+    ],
+    correctAnswer: "It is used to render React components on the server-side.",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question:
+      "What is the difference between React.PureComponent and a regular React.Component?",
+    options: [
+      "React.PureComponent can only be used for class components, while React.Component can be used for both class and functional components.",
+      "React.PureComponent automatically implements the shouldComponentUpdate method with a shallow prop and state comparison, while React.Component does not.",
+      "React.PureComponent is used for rendering pure HTML elements, while React.Component is used for rendering complex UI components.",
+      "There is no difference between React.PureComponent and React.Component.",
+    ],
+    correctAnswer:
+      "React.PureComponent automatically implements the shouldComponentUpdate method with a shallow prop and state comparison, while React.Component does not.",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question: "What is the purpose of React.Fragment in React?",
+    options: [
+      "It is used to create a reusable piece of UI code.",
+      "It is used to define and manage the state of a component.",
+      "It is used to conditionally render components based on a specific condition.",
+      "It is used to wrap multiple elements without adding an extra DOM element to the rendered output.",
+    ],
+    correctAnswer:
+      "It is used to wrap multiple elements without adding an extra DOM element to the rendered output.",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question: "What is a Higher Order Component (HOC) in React?",
+    options: [
+      "A component that is rendered at the top of the component tree.",
+      "A component that receives props and returns a new enhanced component.",
+      "A component that is used to handle user interactions and events.",
+      "A component that renders the UI based on the application's state.",
+    ],
+    correctAnswer:
+      "A component that receives props and returns a new enhanced component.",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question:
+      "Which React hook is used to manage state and perform side effects in functional components?",
+    options: ["useState", "useEffect", "useReducer", "useContext"],
+    correctAnswer: "useState",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question: "What is data binding in React?",
+    options: [
+      "The process of binding data from a component's state to its rendered output.",
+      "The process of connecting a React component to a database.",
+      "The process of passing data between parent and child components using props.",
+      "The process of dynamically updating the UI based on user input.",
+    ],
+    correctAnswer:
+      "The process of binding data from a component's state to its rendered output.",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question: "What is the purpose of a reducer function in React?",
+    options: [
+      "It is used to define the initial state of a component.",
+      "It is used to handle user input events and update the component's state.",
+      "It is used to manage complex state logic in a predictable way.",
+      "It is used to map actions to corresponding state changes.",
+    ],
+    correctAnswer:
+      "It is used to manage complex state logic in a predictable way.",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question:
+      "Which React hook is used to manage complex state and actions using a reducer function?",
+    options: ["useReducer", "useState", "useEffect", "useContext"],
+    correctAnswer: "useReducer",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question: "What is an Error Boundary in React?",
+    options: [
+      "A component that catches JavaScript errors during rendering.",
+      "A boundary that prevents errors from occurring in React applications.",
+      "A boundary that separates UI components from state management.",
+      "A component that is rendered when there is an error in the application.",
+    ],
+    correctAnswer:
+      "A component that catches JavaScript errors during rendering.",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question: "What is the purpose of accessibility (a11y) in React Web Pages?",
+    options: [
+      "To enhance the performance of React components.",
+      "To improve the search engine optimization (SEO) of React applications.",
+      "To ensure that React components are compatible with different browsers.",
+      "To make React web pages more usable and accessible for users with disabilities.",
+    ],
+    correctAnswer:
+      "To make React web pages more usable and accessible for users with disabilities.",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question: "What is the Context API in React?",
+    options: [
+      "A mechanism for passing props from a parent component to its child components.",
+      "An API that enables communication between React components using events.",
+      "A way to manage global state in React applications without prop drilling.",
+      "An API for handling errors and exceptions in React applications.",
+    ],
+    correctAnswer:
+      "A way to manage global state in React applications without prop drilling.",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question: "What is the purpose of debounce in React?",
+    options: [
+      "To delay the execution of a function until a certain amount of time has passed without further calls.",
+      "To optimize the rendering performance of React components.",
+      "To control the timing and sequence of state updates in React applications.",
+      "To handle errors and exceptions in React applications.",
+    ],
+    correctAnswer:
+      "To delay the execution of a function until a certain amount of time has passed without further calls.",
+    code: "",
+    type: "ReactJs",
+  },
+  {
+    question:
+      "What does Cumulative Layout Shift (CLS) measure in web development?",
+    options: [
+      "The time it takes to load a web page and its resources.",
+      "The visual stability of a web page during the loading and rendering process.",
+      "The size of a web page and its contents in bytes.",
+      "The responsiveness and interactivity of a web page.",
+    ],
+    correctAnswer:
+      "The visual stability of a web page during the loading and rendering process.",
+    code: "",
+    type: "ReactJs",
   },
   {
     question:
@@ -867,6 +1440,92 @@ const Assessment = [
     title="Press Me"
   />`,
     type: "ReactNative",
+  },
+  {
+    question: "How can you declare a variable in JavaScript?",
+    options: [
+      `var myVariable = "Hello";`,
+      `myVariable == "Hello";`,
+      `myVariable: "Hello";`,
+      `myVariable :: "Hello";`,
+    ],
+    correctAnswer: `var myVariable = "Hello";`,
+    code: ``,
+    type: "JavaScript",
+  },
+  {
+    question: `What is the correct syntax for referring to an external script called "app.js"?`,
+    options: [
+      `<script href="app.js">`,
+      `<script name="app.js">`,
+      `<script src="app.js">`,
+      `<script file="app.js">`,
+    ],
+    correctAnswer: `<script src="app.js">`,
+    code: ``,
+    type: "JavaScript",
+  },
+  {
+    question: `Which JavaScript method removes the last element from an array and returns that element?`,
+    options: [`.pop()`, `.push()`, `.shift()`, `.unshift()`],
+    correctAnswer: `.pop()`,
+    code: ``,
+    type: "JavaScript",
+  },
+  {
+    question: `What does JSON stand for in JavaScript?`,
+    options: [
+      `JavaScript Object Notation`,
+      `JavaScript Operation Number`,
+      `JavaScript Optional Notation`,
+      `Just Simple Object Notation`,
+    ],
+    correctAnswer: `JavaScript Object Notation`,
+    code: ``,
+    type: "JavaScript",
+  },
+  {
+    question: `How do you declare a JavaScript object?`,
+    options: [
+      `var obj = { key: 'value' };`,
+      `var obj = ( key: 'value' );`,
+      `var obj = [ key: 'value' ];`,
+      `var obj = < key: 'value' >;`,
+    ],
+    correctAnswer: `var obj = { key: 'value' };`,
+    code: ``,
+    type: "JavaScript",
+  },
+  {
+    question: `Which of the following is not a valid JavaScript data type?`,
+    options: [`Undefined`, `Null`, `Number`, `Character`],
+    correctAnswer: `Character`,
+    code: ``,
+    type: "JavaScript",
+  },
+  {
+    question: `How do you find the length of a string in JavaScript?`,
+    options: [
+      `string.length()`,
+      `string.len()`,
+      `string.size()`,
+      `string.length`,
+    ],
+    correctAnswer: `string.length`,
+    code: ``,
+    type: "JavaScript",
+  },
+  {
+    question: `Which of the following correctly creates an instance of a date in JavaScript?`,
+    options: [
+      `var date = new Date()`,
+      `var date = Date()`,
+      `var date = new Date`,
+      `var date = Date.new()`,
+    ],
+    correctAnswer: `var date = new Date()`,
+    code: ``,
+    type: "JavaScript",
   },
 ];
 
