@@ -170,7 +170,14 @@ app.get("/questions", validateToken, async (req, res) => {
       "-correctAnswer"
     );
     questionsToSend = questionsToSend.concat(
-      tsQuestions.sort(() => 0.5 - Math.random()).slice(0, 8)
+      tsQuestions.sort(() => 0.5 - Math.random()).slice(0, 5)
+    );
+    const jsQuestions = await Question.find({ type: "JavaScript" }).select(
+      "-correctAnswer"
+    );
+
+    questionsToSend = questionsToSend.concat(
+      jsQuestions.sort(() => 0.5 - Math.random()).slice(0, 5)
     );
   }
 
@@ -179,7 +186,7 @@ app.get("/questions", validateToken, async (req, res) => {
     code: "",
   }).select("-correctAnswer");
   questionsToSend = questionsToSend.concat(
-    remainingQuestions.sort(() => 0.5 - Math.random()).slice(0, 14)
+    remainingQuestions.sort(() => 0.5 - Math.random()).slice(0, 12)
   );
 
   // Shuffle all the questions together
@@ -198,12 +205,25 @@ app.post("/answer", validateToken, async (req, res) => {
     const answers = req.body;
     let score = 0;
     let answeredQuestions = [];
+    let count = 0;
 
     // get IDs of answered questions
     const questionIds = Object.keys(answers);
 
     // fetch only answered questions from the database
     const allQuestions = await Question.find({ _id: { $in: questionIds } });
+
+    for (let question of allQuestions) {
+      let userAnswer = answers[question._id]
+        ? answers[question._id].choosenAnswer
+        : "No answer";
+
+      if (userAnswer !== "No answer") {
+        count = count + 1;
+      }
+    }
+
+    console.log("count", count);
 
     for (let question of allQuestions) {
       let userAnswer = answers[question._id]
@@ -226,10 +246,10 @@ app.post("/answer", validateToken, async (req, res) => {
     const answersTable = answeredQuestionsToHtmlTable(answeredQuestions);
 
     const email = {
-      to: "akashsajjan4@gmail.com",
-      from: "akash.sajjan@cognitiveclouds.com",
+      to: ["hr@cognitiveclouds.com", "praveen@cognitiveclouds.com"],
+      from: "assessment@cognitiveclouds.com",
       subject: "Quiz Result",
-      html: `${user.firstName} ${user.lastName} has scored ${score} marks. Here are the responses given by ${user.firstName}: ${answersTable}`,
+      html: `${user.firstName} ${user.lastName} has scored ${score}/${count}. Here are the responses given by ${user.firstName}: ${answersTable}`,
     };
 
     sgMail
