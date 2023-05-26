@@ -229,7 +229,7 @@ app.post("/answer", validateToken, async (req, res) => {
       to: "akashsajjan4@gmail.com",
       from: "akash.sajjan@cognitiveclouds.com",
       subject: "Quiz Result",
-      html: `${user.firstName} ${user.lastName} has scored ${score} marks. Here are the answered questions: ${answersTable}`,
+      html: `${user.firstName} ${user.lastName} has scored ${score} marks. Here are the responses given by ${user.firstName}: ${answersTable}`,
     };
 
     sgMail
