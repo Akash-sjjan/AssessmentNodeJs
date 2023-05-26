@@ -77,7 +77,7 @@ const Assessment = [
       "React Native Router",
       "React Router",
     ],
-    correctAnswer: " React Native Router",
+    correctAnswer: "React Native Router",
     code: "",
     type: "ReactNative",
   },
@@ -358,7 +358,7 @@ const Assessment = [
       "Alternative to JavaScript",
       "A different programming language altogether",
     ],
-    correctAnswer: " Superset of JavaScript",
+    correctAnswer: "Superset of JavaScript",
     code: "",
     type: "TypeScript",
   },
@@ -470,6 +470,207 @@ const Assessment = [
     correctAnswer: "Modules and namespaces",
     code: "",
     type: "TypeScript",
+  },
+  {
+    question: "What is platform.OS?",
+    options: [
+      "Platform.OS will be ios when running on iOS and android when running on Android.",
+      "Platform.OS will be only ios when running on iOS",
+      "Platform.OS will be ios when running on iOS, android when running on Android and web when running on the web.",
+    ],
+    correctAnswer:
+      "Platform.OS will be ios when running on iOS, android when running on Android and web when running on the web.",
+    code: "",
+    type: "ReactNative",
+  },
+  {
+    question: "What is ScrollView?",
+    options: [
+      "generic scrolling container that can contain multiple components and views.",
+      "component of React Native for building a user interface",
+      "structured data in a scrollable list",
+    ],
+    correctAnswer:
+      "generic scrolling container that can contain multiple components and views.",
+    code: "",
+    type: "ReactNative",
+  },
+  {
+    question: "UI, JavaScript and Background thread is present in ?",
+    options: ["Flatlist", "View Flattening", "React Native Renderer"],
+    correctAnswer: "React Native Renderer",
+    code: "",
+    type: "ReactNative",
+  },
+  {
+    question:
+      "Which algorithm is used for optimization by the React Native renderer to avoid deep layout trees.",
+    options: ["React Native renderer", "View Flattening", "Fabric"],
+    correctAnswer: "View Flattening",
+    code: "",
+    type: "ReactNative",
+  },
+  {
+    question: "What is getColorScheme()?",
+    options: [
+      "Indicates the current user preferred color scheme",
+      "event handler that is fired when appearance preferences change.",
+      "exposes information about the user's appearance preferences.",
+    ],
+    correctAnswer: "Indicates the current user preferred color scheme",
+    code: "",
+    type: "ReactNative",
+  },
+  {
+    question: "What is the flatten() method?",
+    options: [
+      "used to lookup IDs, returned by StyleSheet.register",
+      "Creates a StyleSheet style reference from the given object.",
+      "Combines two styles",
+    ],
+    correctAnswer: "used to lookup IDs, returned by StyleSheet.register",
+    code: "",
+    type: "ReactNative",
+  },
+  {
+    question:
+      "Which below code can be used to get dimension of application window:",
+    options: [
+      "const windowWidth = Dimensions.Set('window').width;const windowHeight = Dimensions.Set('window').height;",
+      "const windowWidth = Dimensions.get('window').width;const windowHeight = Dimensions.get('window').height;",
+    ],
+    correctAnswer:
+      "const windowWidth = Dimensions.get('window').width;const windowHeight = Dimensions.get('window').height;",
+    code: "",
+    type: "ReactNative",
+  },
+  {
+    question: "What are the components of redux:",
+    options: [
+      "Action, Reducer, state",
+      "Action, view, state",
+      "View, state, Reducer",
+    ],
+    correctAnswer: "Action, Reducer, state",
+    code: "",
+    type: "ReactNative",
+  },
+  {
+    question: "What is serialized JSON?",
+    options: [
+      "Used to transfer data between JavaScript and host platform",
+      "Used to keep consistency among different platforms.",
+      "Host components are lazily initialized by default",
+    ],
+    correctAnswer: "Used to transfer data between JavaScript and host platform",
+    code: "",
+    type: "ReactNative",
+  },
+  {
+    question:
+      "To fetch content from an arbitrary URL, which optional second HTTP Method argument is used?",
+    options: ["PUT", "DELETE", "POST", "GET"],
+    correctAnswer: "POST",
+    code: "",
+    type: "ReactNative",
+  },
+  {
+    question: "What is Deep Linking?",
+    options: [
+      "Which allows you to get near-instant feedback for changes in your React components.",
+      "Way of sending data directly to a native application from an outside source",
+      "Which allows to map a transformed file back to the original source file",
+    ],
+    correctAnswer:
+      "Way of sending data directly to a native application from an outside source",
+    code: "",
+    type: "ReactNative",
+  },
+  {
+    question:
+      "Is React Native UI Kitten part of React Native Component library?",
+    options: ["Yes", "No"],
+    correctAnswer: "Yes",
+    code: "",
+    type: "ReactNative",
+  },
+  {
+    question: "What is AppState?",
+    options: [
+      "Informs if the app is in the foreground or background, and notify you when the state changes.",
+      "Is JS entry point to running all React Native apps",
+      "exposes methods for customizing settings for developers in development.",
+    ],
+    correctAnswer:
+      "Informs if the app is in the foreground or background, and notify you when the state changes.",
+    code: "",
+    type: "ReactNative",
+  },
+  {
+    question: "What is Super () in typescript?",
+    options: [
+      "To access the base class constructor from the child class",
+      "Refers to methods, static and instance variables",
+      "utility type which is used to create a new custom Type",
+    ],
+    correctAnswer: "To access the base class constructor from the child class",
+    code: "",
+    type: "TypeScript",
+  },
+  {
+    question: "________is used to create immutable stylesheet references",
+    options: ["none", "stylesheet", "Interaction manager", "Redux"],
+    correctAnswer: "stylesheet",
+    code: "",
+    type: "ReactNative",
+  },
+  {
+    question:
+      "To update react native with the latest version what will you use?",
+    options: ["none", "both", "react-native upgrade", "react-native init"],
+    correctAnswer: "react-native upgrade",
+    code: "",
+    type: "ReactNative",
+  },
+  {
+    question: "Select apps which use react native .",
+    options: ["All", "Instagram", "pinterest", "Airbnb"],
+    correctAnswer: "All",
+    code: "",
+    type: "ReactNative",
+  },
+  {
+    question: "React native was initially released in",
+    options: ["2000", "2014", "2015", "2008"],
+    correctAnswer: "2015",
+    code: "",
+    type: "ReactNative",
+  },
+  {
+    question: "Virtual DOM creates a copy of the whole DOM object",
+    options: ["TRUE", "FALSE"],
+    correctAnswer: "TRUE",
+    code: "",
+    type: "ReactNative",
+  },
+  {
+    question: "Props are immutable. True or False?",
+    options: ["TRUE", "FALSE"],
+    correctAnswer: "TRUE",
+    code: "",
+    type: "ReactNative",
+  },
+  {
+    question: "Which statement is true for props?",
+    options: [
+      "it is set and updated by the object",
+      "it is mutual",
+      "can be modified",
+      "can't be modified",
+    ],
+    correctAnswer: "can't be modified",
+    code: "",
+    type: "ReactNative",
   },
   {
     question:
@@ -600,8 +801,7 @@ const Assessment = [
     type: "ReactNative",
   },
   {
-    question:
-      `Consider the following code snippet:\n What does 'barStyle="light-content"' do in this StatusBar component?`,
+    question: `Consider the following code snippet:\n What does 'barStyle="light-content"' do in this StatusBar component?`,
     options: [
       "Changes the color of the status bar text to light",
       "Changes the color of the status bar to light",
@@ -616,8 +816,7 @@ const Assessment = [
     type: "ReactNative",
   },
   {
-    question:
-      `Consider the following code snippet:\n When will the "Cleanup function" message be logged to the console?`,
+    question: `Consider the following code snippet:\n When will the "Cleanup function" message be logged to the console?`,
     options: [
       "When the component is first mounted",
       "After every render",
@@ -643,7 +842,8 @@ const Assessment = [
       "To delay the execution of the function until the next render",
       "To run the function as a side effect of a state or props change",
     ],
-    correctAnswer: "To prevent the function from being recreated on every render",
+    correctAnswer:
+      "To prevent the function from being recreated on every render",
     code: `const handler = useCallback(() => {
       console.log('Button clicked');
     }, []);`,
@@ -658,7 +858,8 @@ const Assessment = [
       "It displays an alert dialog with the message 'You tapped the button!' when the button is pressed",
       "It logs the message 'You tapped the button!' to the console when the button is pressed",
     ],
-    correctAnswer: "It displays an alert dialog with the message 'You tapped the button!' when the button is pressed",
+    correctAnswer:
+      "It displays an alert dialog with the message 'You tapped the button!' when the button is pressed",
     code: `<Button
     onPress={() => {
       Alert.alert('You tapped the button!');
