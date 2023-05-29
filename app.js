@@ -209,6 +209,8 @@ app.get("/questions", validateToken, async (req, res) => {
   res.json(questionsToSend);
 });
 
+
+
 app.post("/answer", validateToken, async (req, res) => {
   if (typeof req.body !== "object" || req.body === null) {
     return res.status(400).json({ error: "Invalid request body" });
@@ -257,10 +259,20 @@ app.post("/answer", validateToken, async (req, res) => {
       });
     }
 
-    user.totalScore += score;
-    user.Answers = answers;
-    // Then save the user
-    await user.save();
+    user.totalScore = score;
+    // user.answers = answeredQuestions;
+    user.save().catch((error) => {
+      console.error(`Error saving user: ${error}`);
+      return res.status(500).json({ error: "Error updating user" });
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Email sent successfully!",
+      score,
+      firstName: user.firstName,
+      lastName: user.lastName,
+    });
 
     const answersTable = answeredQuestionsToHtmlTable(answeredQuestions);
 
@@ -271,35 +283,35 @@ app.post("/answer", validateToken, async (req, res) => {
       html: `${user.nickname} has scored ${score}/${count}. Here are the responses given by ${user.firstName}: ${answersTable}`,
     };
 
-    sgMail
-      .send(email)
-      .then(() => {
-        if (res.statusCode === 200) {
-          user.testCompleted = true;
-          user.save().catch((error) => {
-            console.error(`Error saving user: ${error}`);
-            return res.status(500).json({ error: "Error updating user" });
-          });
-        }
-        res.status(200).json({
-          success: true,
-          message: "Email sent successfully!",
-          score,
-          firstName: user.firstName,
-          lastName: user.lastName,
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-        if (error.response) {
-          console.error(error.response.body);
-        }
-        res.status(500).json({
-          success: false,
-          message: "An error occurred while trying to send the email",
-          error: error,
-        });
-      });
+    // sgMail
+    //   .send(email)
+    //   .then(() => {
+    //     if (res.statusCode === 200) {
+    //       user.testCompleted = true;
+    //       user.save().catch((error) => {
+    //         console.error(`Error saving user: ${error}`);
+    //         return res.status(500).json({ error: "Error updating user" });
+    //       });
+    //     }
+    //     res.status(200).json({
+    //       success: true,
+    //       message: "Email sent successfully!",
+    //       score,
+    //       firstName: user.firstName,
+    //       lastName: user.lastName,
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //     if (error.response) {
+    //       console.error(error.response.body);
+    //     }
+    //     res.status(500).json({
+    //       success: false,
+    //       message: "An error occurred while trying to send the email",
+    //       error: error,
+    //     });
+    //   });
   } catch (error) {
     console.error(error);
     res.status(500).json({
