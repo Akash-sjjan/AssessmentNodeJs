@@ -1,4 +1,5 @@
 const Assessment = [
+  // React Native Questions start ////////////////////////////////////////////////////////////////////////////////////////////
   {
     question: "Which programming language is used in React Native development?",
     options: [
@@ -351,127 +352,6 @@ const Assessment = [
     type: "ReactNative",
   },
   {
-    question: "TypeScript is a:",
-    options: [
-      "Superset of JavaScript",
-      "Subset of JavaScript",
-      "Alternative to JavaScript",
-      "A different programming language altogether",
-    ],
-    correctAnswer: "Superset of JavaScript",
-    code: "",
-    type: "TypeScript",
-  },
-  {
-    question: "TypeScript provides which of the following benefits?",
-    options: [
-      "Static typing",
-      "Improved tooling and IDE support",
-      "Enhanced code maintainability",
-      "All of the above",
-    ],
-    correctAnswer: "All of the above",
-    code: "",
-    type: "TypeScript",
-  },
-  {
-    question: "TypeScript code is compiled into:",
-    options: ["Machine code", "Bytecode", "JavaScript", "Assembly language"],
-    correctAnswer: "JavaScript",
-    code: "",
-    type: "TypeScript",
-  },
-  {
-    question: "What is the file extension for TypeScript files?",
-    options: [".ts", ".js", ".txt", ".html"],
-    correctAnswer: ".ts",
-    code: "",
-    type: "TypeScript",
-  },
-  {
-    question: "Which of the following is true about TypeScript interfaces?",
-    options: [
-      "Interfaces are optional in TypeScript.",
-      "Interfaces are used to define the structure of a class or object.",
-      "Interfaces are only applicable to functions.",
-      "Interfaces are only used for styling purposes.",
-    ],
-    correctAnswer:
-      "Interfaces are used to define the structure of a class or object.",
-    code: "",
-    type: "TypeScript",
-  },
-  {
-    question: "TypeScript supports which type of modules?",
-    options: [
-      "ES5 modules",
-      "CommonJS modules",
-      "AMD modules",
-      "All of the above",
-    ],
-    correctAnswer: "All of the above",
-    code: "",
-    type: "TypeScript",
-  },
-  {
-    question: 'In TypeScript, what is the purpose of the "readonly" modifier?',
-    options: [
-      "It restricts the modification of a variable or property after initialization.",
-      "It enforces a property to be initialized.",
-      "It makes a variable or property accessible from any scope.",
-      "It defines a variable or property as constant.",
-    ],
-    correctAnswer:
-      "It restricts the modification of a variable or property after initialization.",
-    code: "",
-    type: "TypeScript",
-  },
-  {
-    question: "TypeScript supports which of the following inheritance models?",
-    options: [
-      "Single inheritance",
-      "Multiple inheritance",
-      "Hybrid inheritance",
-      "None of the above",
-    ],
-    correctAnswer: "Single inheritance",
-    code: "",
-    type: "TypeScript",
-  },
-  {
-    question:
-      "Which TypeScript feature allows you to specify the types of multiple parameters and the return type of a function?",
-    options: ["Type assertions", "Type aliases", "Generics", "Function types"],
-    correctAnswer: "Function types",
-    code: "",
-    type: "TypeScript",
-  },
-  {
-    question: 'What is the purpose of the "namespace" keyword in TypeScript?',
-    options: [
-      "It creates a new variable scope within a function.",
-      "It defines a group of related functionalities or objects.",
-      "It is used to import external modules in TypeScript.",
-      "It declares a new TypeScript project.",
-    ],
-    correctAnswer: "It defines a group of related functionalities or objects.",
-    code: "",
-    type: "TypeScript",
-  },
-  {
-    question:
-      "TypeScript provides which mechanism for achieving code reuse and encapsulation?",
-    options: [
-      "Classes and objects",
-      "Modules and namespaces",
-      "Functions and closures",
-      "Promises and async/await",
-    ],
-    correctAnswer: "Modules and namespaces",
-    code: "",
-    type: "TypeScript",
-  },
-  {
     question: "What is platform.OS?",
     options: [
       "Platform.OS will be ios when running on iOS and android when running on Android.",
@@ -606,17 +486,7 @@ const Assessment = [
     code: "",
     type: "ReactNative",
   },
-  {
-    question: "What is Super () in typescript?",
-    options: [
-      "To access the base class constructor from the child class",
-      "Refers to methods, static and instance variables",
-      "utility type which is used to create a new custom Type",
-    ],
-    correctAnswer: "To access the base class constructor from the child class",
-    code: "",
-    type: "TypeScript",
-  },
+
   {
     question: "________is used to create immutable stylesheet references",
     options: ["none", "stylesheet", "Interaction manager", "Redux"],
@@ -672,7 +542,337 @@ const Assessment = [
     code: "",
     type: "ReactNative",
   },
+  // React Native Code questions start ////////////////////////////////////////////////////////////////////////////////////////////
+  {
+    question:
+      "Consider the following code snippet:\n Which method can be used to change the state of counter?",
+    options: [
+      "this.state.counter = 5",
+      "this.state.counter++",
+      "this.setState({ counter: 5 })",
+      "this.props.counter = 5",
+    ],
+    correctAnswer: "this.setState({ counter: 5 })",
+    code: `class MyApp extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            counter: 0
+          };
+        }
+        // ...
+      }`,
+    type: "ReactNative",
+  },
+  {
+    question:
+      "Consider the following code snippet:\n What does the 'flex: 1'in the 'styles' do?",
+    options: [
+      "Sets the width of the container",
+      "Sets the height of the container",
+      "Makes the container take up all available space in its parent",
+      "Centers the container in its parent",
+    ],
+    correctAnswer:
+      "Makes the container take up all available space in its parent",
+    code: `import React from 'react';
+    import { StyleSheet, Text, View } from 'react-native';
+    
+    export default function App() {
+      return (
+        <View style={styles.container}>
+          <Text>Hello, React Native!</Text>
+        </View>
+      );
+    }
+    
+    const styles = StyleSheet.create({
+      container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+    });`,
+    type: "ReactNative",
+  },
+  {
+    question:
+      "Consider the following code snippet:\n What does the 'TouchableOpacity' component do in this snippet?",
+    options: [
+      "Changes the opacity of the wrapped component when touched",
+      "Provides a clickable area",
+      "Both A and B",
+      "None of the above",
+    ],
+    correctAnswer: "Both A and B",
+    code: `<TouchableOpacity onPress={() => console.log('Pressed')}>
+    <Text>Press Me</Text>
+  </TouchableOpacity>`,
+    type: "ReactNative",
+  },
+  {
+    question:
+      "Consider the following code snippet:\n What is the purpose of the keyExtractor prop in a FlatList in React Native?",
+    options: [
+      "It uniquely identifies each element",
+      "It helps in the process of diffing and re-rendering",
+      "It is used to sort the list",
+      "Both A and B",
+    ],
+    correctAnswer: "Both A and B",
+    code: `<FlatList
+    data={data}
+    renderItem={renderItem}
+    keyExtractor={(item) => item.id}
+  />`,
+    type: "ReactNative",
+  },
+  {
+    question:
+      "Consider the following code snippet:\n In the snippet above, what does flexDirection: 'column' do?",
+    options: [
+      "Arranges the items horizontally",
+      "Arranges the items vertically",
+      "Centers the items",
+      "Justifies the items",
+    ],
+    correctAnswer: "Arranges the items vertically",
+    code: `<View style={{ flexDirection: 'column' }}>
+    <Text>Item 1</Text>
+    <Text>Item 2</Text>
+    <Text>Item 3</Text>
+  </View>`,
+    type: "ReactNative",
+  },
+  {
+    question:
+      "Consider the following code snippet:\n What does onChangeText do in this snippet?",
+    options: [
+      "It sets the value of 'TextInput' to the state",
+      "It changes the state whenever 'TextInput' changes",
+      "It changes the value of 'TextInput' whenever the state changes",
+      "It updates the UI whenever the state changes",
+    ],
+    correctAnswer: "It changes the state whenever 'TextInput' changes",
+    code: `<TextInput onChangeText={(text) => this.setState({input: text})} />`,
+    type: "ReactNative",
+  },
+  {
+    question:
+      "Consider the following code snippet:\n What is the correct way to update the 'name' property of the state object, without altering the 'age' property?",
+    options: [
+      `setState({ name: "Doe" })`,
+      `setState({ name: "Doe", age: state.age })`,
+      `setState(prevState => ({ ...prevState, name: "Doe" }))`,
+      `setState({ ...state, name: "Doe" })`,
+    ],
+    correctAnswer: `setState(prevState => ({ ...prevState, name: "Doe" }))`,
+    code: `const [state, setState] = React.useState({ name: "John", age: 30 });`,
+    type: "ReactNative",
+  },
+  {
+    question: `Consider the following code snippet:\n What does 'barStyle="light-content"' do in this StatusBar component?`,
+    options: [
+      "Changes the color of the status bar text to light",
+      "Changes the color of the status bar to light",
+      "Changes the color of the status bar text to dark",
+      "Changes the color of the status bar to dark",
+    ],
+    correctAnswer: "Changes the color of the status bar text to light",
+    code: `import { StatusBar } from 'react-native';
 
+    <StatusBar backgroundColor="blue" barStyle="light-content" />
+    `,
+    type: "ReactNative",
+  },
+  {
+    question: `Consider the following code snippet:\n When will the "Cleanup function" message be logged to the console?`,
+    options: [
+      "When the component is first mounted",
+      "After every render",
+      "When the component is updated",
+      "When the component is unmounted",
+    ],
+    correctAnswer: "When the component is unmounted",
+    code: `useEffect(() => {
+      console.log('Effect executed');
+    
+      return () => {
+        console.log('Cleanup function');
+      }
+    }, []);`,
+    type: "ReactNative",
+  },
+  {
+    question:
+      "Consider the following code snippet:\n What is the purpose of useCallback in this case?",
+    options: [
+      "To prevent the function from being recreated on every render",
+      "To execute the function only when the component first renders",
+      "To delay the execution of the function until the next render",
+      "To run the function as a side effect of a state or props change",
+    ],
+    correctAnswer:
+      "To prevent the function from being recreated on every render",
+    code: `const handler = useCallback(() => {
+      console.log('Button clicked');
+    }, []);`,
+    type: "ReactNative",
+  },
+  {
+    question:
+      "Consider the following code snippet:\n What does Alert.alert do in this snippet?",
+    options: [
+      "It creates a new button with the label 'You tapped the button!'",
+      "It changes the button's title to 'You tapped the button!' when the button is pressed",
+      "It displays an alert dialog with the message 'You tapped the button!' when the button is pressed",
+      "It logs the message 'You tapped the button!' to the console when the button is pressed",
+    ],
+    correctAnswer:
+      "It displays an alert dialog with the message 'You tapped the button!' when the button is pressed",
+    code: `<Button
+    onPress={() => {
+      Alert.alert('You tapped the button!');
+    }}
+    title="Press Me"
+  />`,
+    type: "ReactNative",
+  },
+  // Typescript Questions start ////////////////////////////////////////////////////////////////////////////////////////////
+  {
+    question: "TypeScript is a:",
+    options: [
+      "Superset of JavaScript",
+      "Subset of JavaScript",
+      "Alternative to JavaScript",
+      "A different programming language altogether",
+    ],
+    correctAnswer: "Superset of JavaScript",
+    code: "",
+    type: "TypeScript",
+  },
+  {
+    question: "TypeScript provides which of the following benefits?",
+    options: [
+      "Static typing",
+      "Improved tooling and IDE support",
+      "Enhanced code maintainability",
+      "All of the above",
+    ],
+    correctAnswer: "All of the above",
+    code: "",
+    type: "TypeScript",
+  },
+  {
+    question: "TypeScript code is compiled into:",
+    options: ["Machine code", "Bytecode", "JavaScript", "Assembly language"],
+    correctAnswer: "JavaScript",
+    code: "",
+    type: "TypeScript",
+  },
+  {
+    question: "What is the file extension for TypeScript files?",
+    options: [".ts", ".js", ".txt", ".html"],
+    correctAnswer: ".ts",
+    code: "",
+    type: "TypeScript",
+  },
+  {
+    question: "Which of the following is true about TypeScript interfaces?",
+    options: [
+      "Interfaces are optional in TypeScript.",
+      "Interfaces are used to define the structure of a class or object.",
+      "Interfaces are only applicable to functions.",
+      "Interfaces are only used for styling purposes.",
+    ],
+    correctAnswer:
+      "Interfaces are used to define the structure of a class or object.",
+    code: "",
+    type: "TypeScript",
+  },
+  {
+    question: "TypeScript supports which type of modules?",
+    options: [
+      "ES5 modules",
+      "CommonJS modules",
+      "AMD modules",
+      "All of the above",
+    ],
+    correctAnswer: "All of the above",
+    code: "",
+    type: "TypeScript",
+  },
+  {
+    question: 'In TypeScript, what is the purpose of the "readonly" modifier?',
+    options: [
+      "It restricts the modification of a variable or property after initialization.",
+      "It enforces a property to be initialized.",
+      "It makes a variable or property accessible from any scope.",
+      "It defines a variable or property as constant.",
+    ],
+    correctAnswer:
+      "It restricts the modification of a variable or property after initialization.",
+    code: "",
+    type: "TypeScript",
+  },
+  {
+    question: "TypeScript supports which of the following inheritance models?",
+    options: [
+      "Single inheritance",
+      "Multiple inheritance",
+      "Hybrid inheritance",
+      "None of the above",
+    ],
+    correctAnswer: "Single inheritance",
+    code: "",
+    type: "TypeScript",
+  },
+  {
+    question:
+      "Which TypeScript feature allows you to specify the types of multiple parameters and the return type of a function?",
+    options: ["Type assertions", "Type aliases", "Generics", "Function types"],
+    correctAnswer: "Function types",
+    code: "",
+    type: "TypeScript",
+  },
+  {
+    question: 'What is the purpose of the "namespace" keyword in TypeScript?',
+    options: [
+      "It creates a new variable scope within a function.",
+      "It defines a group of related functionalities or objects.",
+      "It is used to import external modules in TypeScript.",
+      "It declares a new TypeScript project.",
+    ],
+    correctAnswer: "It defines a group of related functionalities or objects.",
+    code: "",
+    type: "TypeScript",
+  },
+  {
+    question:
+      "TypeScript provides which mechanism for achieving code reuse and encapsulation?",
+    options: [
+      "Classes and objects",
+      "Modules and namespaces",
+      "Functions and closures",
+      "Promises and async/await",
+    ],
+    correctAnswer: "Modules and namespaces",
+    code: "",
+    type: "TypeScript",
+  },
+  {
+    question: "What is Super () in typescript?",
+    options: [
+      "To access the base class constructor from the child class",
+      "Refers to methods, static and instance variables",
+      "utility type which is used to create a new custom Type",
+    ],
+    correctAnswer: "To access the base class constructor from the child class",
+    code: "",
+    type: "TypeScript",
+  },
+  // ReactJs Questions start ////////////////////////////////////////////////////////////////////////////////////////////
   {
     question: "What is JSX in ReactJS?",
     options: [
@@ -1245,202 +1445,7 @@ const Assessment = [
     code: "",
     type: "ReactJs",
   },
-  {
-    question:
-      "Consider the following code snippet:\n Which method can be used to change the state of counter?",
-    options: [
-      "this.state.counter = 5",
-      "this.state.counter++",
-      "this.setState({ counter: 5 })",
-      "this.props.counter = 5",
-    ],
-    correctAnswer: "this.setState({ counter: 5 })",
-    code: `class MyApp extends React.Component {
-        constructor(props) {
-          super(props);
-          this.state = {
-            counter: 0
-          };
-        }
-        // ...
-      }`,
-    type: "ReactNative",
-  },
-  {
-    question:
-      "Consider the following code snippet:\n What does the 'flex: 1'in the 'styles' do?",
-    options: [
-      "Sets the width of the container",
-      "Sets the height of the container",
-      "Makes the container take up all available space in its parent",
-      "Centers the container in its parent",
-    ],
-    correctAnswer:
-      "Makes the container take up all available space in its parent",
-    code: `import React from 'react';
-    import { StyleSheet, Text, View } from 'react-native';
-    
-    export default function App() {
-      return (
-        <View style={styles.container}>
-          <Text>Hello, React Native!</Text>
-        </View>
-      );
-    }
-    
-    const styles = StyleSheet.create({
-      container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
-    });`,
-    type: "ReactNative",
-  },
-  {
-    question:
-      "Consider the following code snippet:\n What does the 'TouchableOpacity' component do in this snippet?",
-    options: [
-      "Changes the opacity of the wrapped component when touched",
-      "Provides a clickable area",
-      "Both A and B",
-      "None of the above",
-    ],
-    correctAnswer: "Both A and B",
-    code: `<TouchableOpacity onPress={() => console.log('Pressed')}>
-    <Text>Press Me</Text>
-  </TouchableOpacity>`,
-    type: "ReactNative",
-  },
-  {
-    question:
-      "Consider the following code snippet:\n What is the purpose of the keyExtractor prop in a FlatList in React Native?",
-    options: [
-      "It uniquely identifies each element",
-      "It helps in the process of diffing and re-rendering",
-      "It is used to sort the list",
-      "Both A and B",
-    ],
-    correctAnswer: "Both A and B",
-    code: `<FlatList
-    data={data}
-    renderItem={renderItem}
-    keyExtractor={(item) => item.id}
-  />`,
-    type: "ReactNative",
-  },
-  {
-    question:
-      "Consider the following code snippet:\n In the snippet above, what does flexDirection: 'column' do?",
-    options: [
-      "Arranges the items horizontally",
-      "Arranges the items vertically",
-      "Centers the items",
-      "Justifies the items",
-    ],
-    correctAnswer: "Arranges the items vertically",
-    code: `<View style={{ flexDirection: 'column' }}>
-    <Text>Item 1</Text>
-    <Text>Item 2</Text>
-    <Text>Item 3</Text>
-  </View>`,
-    type: "ReactNative",
-  },
-  {
-    question:
-      "Consider the following code snippet:\n What does onChangeText do in this snippet?",
-    options: [
-      "It sets the value of 'TextInput' to the state",
-      "It changes the state whenever 'TextInput' changes",
-      "It changes the value of 'TextInput' whenever the state changes",
-      "It updates the UI whenever the state changes",
-    ],
-    correctAnswer: "It changes the state whenever 'TextInput' changes",
-    code: `<TextInput onChangeText={(text) => this.setState({input: text})} />`,
-    type: "ReactNative",
-  },
-  {
-    question:
-      "Consider the following code snippet:\n What is the correct way to update the 'name' property of the state object, without altering the 'age' property?",
-    options: [
-      `setState({ name: "Doe" })`,
-      `setState({ name: "Doe", age: state.age })`,
-      `setState(prevState => ({ ...prevState, name: "Doe" }))`,
-      `setState({ ...state, name: "Doe" })`,
-    ],
-    correctAnswer: `setState(prevState => ({ ...prevState, name: "Doe" }))`,
-    code: `const [state, setState] = React.useState({ name: "John", age: 30 });`,
-    type: "ReactNative",
-  },
-  {
-    question: `Consider the following code snippet:\n What does 'barStyle="light-content"' do in this StatusBar component?`,
-    options: [
-      "Changes the color of the status bar text to light",
-      "Changes the color of the status bar to light",
-      "Changes the color of the status bar text to dark",
-      "Changes the color of the status bar to dark",
-    ],
-    correctAnswer: "Changes the color of the status bar text to light",
-    code: `import { StatusBar } from 'react-native';
-
-    <StatusBar backgroundColor="blue" barStyle="light-content" />
-    `,
-    type: "ReactNative",
-  },
-  {
-    question: `Consider the following code snippet:\n When will the "Cleanup function" message be logged to the console?`,
-    options: [
-      "When the component is first mounted",
-      "After every render",
-      "When the component is updated",
-      "When the component is unmounted",
-    ],
-    correctAnswer: "When the component is unmounted",
-    code: `useEffect(() => {
-      console.log('Effect executed');
-    
-      return () => {
-        console.log('Cleanup function');
-      }
-    }, []);`,
-    type: "ReactNative",
-  },
-  {
-    question:
-      "Consider the following code snippet:\n What is the purpose of useCallback in this case?",
-    options: [
-      "To prevent the function from being recreated on every render",
-      "To execute the function only when the component first renders",
-      "To delay the execution of the function until the next render",
-      "To run the function as a side effect of a state or props change",
-    ],
-    correctAnswer:
-      "To prevent the function from being recreated on every render",
-    code: `const handler = useCallback(() => {
-      console.log('Button clicked');
-    }, []);`,
-    type: "ReactNative",
-  },
-  {
-    question:
-      "Consider the following code snippet:\n What does Alert.alert do in this snippet?",
-    options: [
-      "It creates a new button with the label 'You tapped the button!'",
-      "It changes the button's title to 'You tapped the button!' when the button is pressed",
-      "It displays an alert dialog with the message 'You tapped the button!' when the button is pressed",
-      "It logs the message 'You tapped the button!' to the console when the button is pressed",
-    ],
-    correctAnswer:
-      "It displays an alert dialog with the message 'You tapped the button!' when the button is pressed",
-    code: `<Button
-    onPress={() => {
-      Alert.alert('You tapped the button!');
-    }}
-    title="Press Me"
-  />`,
-    type: "ReactNative",
-  },
+  // JavaScript Questions start ////////////////////////////////////////////////////////////////////////////////////////////
   {
     question: "How can you declare a variable in JavaScript?",
     options: [
@@ -1526,6 +1531,847 @@ const Assessment = [
     correctAnswer: `var date = new Date()`,
     code: ``,
     type: "JavaScript",
+  },
+  // ReactJs Coding Questions start ////////////////////////////////////////////////////////////////////////////////////////////
+  {
+    question: `What does the Greeting component render?`,
+    options: [
+      `A heading element with the text "Hello, {name}!"`,
+      `A paragraph element with the text "Welcome to the website."`,
+      `Both a heading element and a paragraph element.`,
+      `Nothing, as the component is not used anywhere.`,
+    ],
+    code: `import React from 'react';
+
+const Greeting = ({ name }) => (
+  <div>
+    <h1>Hello, {name}!</h1>
+    <p>Welcome to the website.</p>
+  </div>
+);
+
+export default Greeting;`,
+    correctAnswer: `Both a heading element and a paragraph element.`,
+    type: "ReactJs",
+  },
+  {
+    question: `What is the output of the above code?`,
+    options: [
+      `The output will be "Hello, React!".`,
+      `The output will be "Goodbye, React!".`,
+      `The output will be an empty div element.`,
+      `The code will result in an error.`,
+    ],
+    code: `const App = () => (
+  <div>
+    {true && <p>Hello, React!</p>}
+    {false && <p>Goodbye, React!</p>}
+  </div>
+);`,
+    correctAnswer: `The output will be "Hello, React!".`,
+    type: "ReactJs",
+  },
+  {
+    question: `What will be the output of the above code?`,
+    options: [
+      `"React App"`,
+      `10`,
+      `The code will result in an error.`,
+      `Both "10" and "React App".`,
+    ],
+    code: `const number = 10;
+
+const App = () => {
+  console.log(number);
+  return <div>React App</div>;
+};`,
+    correctAnswer: `10`,
+    type: "ReactJs",
+  },
+  {
+    question: `What is the output of the following code?`,
+    options: [`"react"`, `"angular"`, `"vue"`, `"svelte"`],
+    code: `console.log("react" && "angular" && "vue" && "svelte");`,
+    correctAnswer: `"svelte"`,
+    type: "ReactJs",
+  },
+  {
+    question: `What is the output of the following code?`,
+    options: [`null`, `undefined`, `false`, `true`, `0`, `"react"`],
+    code: `console.log(null || undefined || false || true || 0 || "react");`,
+    correctAnswer: `true`,
+    type: "ReactJs",
+  },
+  // Ruby on Rails Questions //////////////////////////////////////////////////////////////////////////////////////////////////
+  {
+    question: `What is the command to create a new Rails application?`,
+    options: [
+      `rails new app_name`,
+      `new rails app_name`,
+      `create rails app_name`,
+      `app_name new rails`,
+    ],
+    code: ``,
+    correctAnswer: `rails new app_name`,
+    type: `Ruby`,
+  },
+  {
+    question: `What is the default database used in a new Rails application?`,
+    options: [`MySQL`, `PostgreSQL`, `SQLite`, `MongoDB`],
+    code: ``,
+    correctAnswer: `SQLite`,
+    type: `Ruby`,
+  },
+  {
+    question: `Which directory contains the models in a Rails application?`,
+    options: [`app/controllers`, `app/views`, `app/models`, `app/helpers`],
+    code: ``,
+    correctAnswer: `app/models`,
+    type: `Ruby`,
+  },
+  {
+    question: `What is the purpose of migrations in Rails?`,
+    options: [
+      `To create the database schema`,
+      `To handle user authentication`,
+      `To manage the application's routes`,
+      `To store static assets like CSS and JavaScript`,
+    ],
+    code: ``,
+    correctAnswer: `To create the database schema`,
+    type: `Ruby`,
+  },
+  {
+    question: `Which command is used to run database migrations in Rails?`,
+    options: [
+      `rails migrate`,
+      `rake db:migrate`,
+      `rails db:migrate`,
+      `rake migrate:db`,
+    ],
+    code: ``,
+    correctAnswer: `rake db:migrate`,
+    type: `Ruby`,
+  },
+  {
+    question: `Which file is used to define the routes in a Rails application?`,
+    options: [`routes.rb`, `application.rb`, `routes.yml`, `config.rb`],
+    code: ``,
+    correctAnswer: `routes.rb`,
+    type: `Ruby`,
+  },
+  {
+    question: `What is the purpose of the Rails asset pipeline?`,
+    options: [
+      `To optimize database queries`,
+      `To manage user authentication`,
+      `To compile and serve static assets`,
+      `To handle background jobs`,
+    ],
+    code: ``,
+    correctAnswer: `To compile and serve static assets`,
+    type: `Ruby`,
+  },
+  {
+    question: `Which command starts the Rails development server?`,
+    options: [
+      `rails server`,
+      `server rails`,
+      `start rails server`,
+      `rails start`,
+    ],
+    code: ``,
+    correctAnswer: `rails server`,
+    type: `Ruby`,
+  },
+  {
+    question: `What is the convention for naming a controller in Rails?`,
+    options: [
+      `Singular form (e.g., UserController)`,
+      `Plural form (e.g., UsersController)`,
+      `CamelCase format (e.g., User_Controller)`,
+      `Snake_case format (e.g., user_controller)`,
+    ],
+    code: ``,
+    correctAnswer: `Plural form (e.g., UsersController)`,
+    type: `Ruby`,
+  },
+  {
+    question: `Which command is used to generate a new Rails controller?`,
+    options: [
+      `rails generate controller`,
+      `rake new controller`,
+      `generate rails controller`,
+      `controller new rails`,
+    ],
+    code: ``,
+    correctAnswer: `rails generate controller`,
+    type: `Ruby`,
+  },
+  {
+    question: `In Rails, which file is responsible for defining the database connection configuration?`,
+    options: [
+      `config/initializers/database.rb`,
+      `config/database.yml`,
+      `db/connections.rb`,
+      `app/config/database.rb`,
+    ],
+    code: ``,
+    correctAnswer: `config/database.yml`,
+    type: `Ruby`,
+  },
+  {
+    question: `What is the purpose of the Rails scaffold generator?`,
+    options: [
+      `To generate a basic CRUD interface for a resource`,
+      `To generate a new Rails application structure`,
+      `To generate database migrations`,
+      `To generate models with associations`,
+    ],
+    code: ``,
+    correctAnswer: `To generate a basic CRUD interface for a resource`,
+    type: `Ruby`,
+  },
+  {
+    question: `Which command is used to generate a migration file?`,
+    options: [
+      `rails new_migration`,
+      `rake db:new_migration`,
+      `rails generate migration`,
+      `migration generate rails`,
+    ],
+    code: ``,
+    correctAnswer: `rails generate migration`,
+    type: `Ruby`,
+  },
+  {
+    question: `What is the purpose of the Rails console?`,
+    options: [
+      `To run automated tests`,
+      `To interact with the application's database and models`,
+      `To deploy the Rails application to a production server`,
+      `To generate API documentation`,
+    ],
+    code: ``,
+    correctAnswer: `To interact with the application's database and models`,
+    type: `Ruby`,
+  },
+  {
+    question: `What is the purpose of the "strong parameters" feature in Rails?`,
+    options: [
+      `To secure user authentication`,
+      `To handle file uploads`,
+      `To sanitize user input`,
+      `To define allowed parameters for mass assignment`,
+    ],
+    code: ``,
+    correctAnswer: `To define allowed parameters for mass assignment`,
+    type: `Ruby`,
+  },
+  {
+    question: `Which command is used to start a Rails console session?`,
+    options: [
+      `rails console`,
+      `console rails`,
+      `start rails console`,
+      `rails start_console`,
+    ],
+    code: ``,
+    correctAnswer: `rails console`,
+    type: `Ruby`,
+  },
+  {
+    question: `What is the purpose of the Rails helper files?`,
+    options: [
+      `To define database schema migrations`,
+      `To handle user authentication logic`,
+      `To assist with view rendering and logic`,
+      `To generate test data`,
+    ],
+    code: ``,
+    correctAnswer: `To assist with view rendering and logic`,
+    type: `Ruby`,
+  },
+  {
+    question: `Which Rails command is used to run the application's test suite?`,
+    options: [`rails run_tests`, `rake test`, `rails test_suite`, `test rails`],
+    code: ``,
+    correctAnswer: `rake test`,
+    type: `Ruby`,
+  },
+  {
+    question: `What is the purpose of the "gemfile" in a Rails application?`,
+    options: [
+      `To store database credentials`,
+      `To manage application dependencies`,
+      `To define routes and URL mappings`,
+      `To configure the application's server settings`,
+    ],
+    code: ``,
+    correctAnswer: `To manage application dependencies`,
+    type: `Ruby`,
+  },
+  {
+    question: `In Rails, what is the purpose of the app/assets folder?`,
+    options: [
+      `To store database configuration files`,
+      `To store JavaScript, CSS, and image files`,
+      `To define routing and URL mappings`,
+      `To store database migration files`,
+    ],
+    code: ``,
+    correctAnswer: `To store JavaScript, CSS, and image files`,
+    type: `Ruby`,
+  },
+  {
+    question: `Which Rails command is used to generate a new migration that adds a column to an existing table?`,
+    options: [
+      `rails generate column`,
+      `rake db:add_column`,
+      `rails add_column`,
+      `rails generate migration`,
+    ],
+    code: ``,
+    correctAnswer: `rails generate migration`,
+    type: `Ruby`,
+  },
+  {
+    question: `What is the purpose of the Rails routing file, routes.rb?`,
+    options: [
+      `To define database associations`,
+      `To define routes and URL mappings`,
+      `To manage user authentication`,
+      `To handle file uploads`,
+    ],
+    code: ``,
+    correctAnswer: `To define routes and URL mappings`,
+    type: `Ruby`,
+  },
+  {
+    question: `Which command is used to rollback the last database migration in Rails?`,
+    options: [
+      `rake db:rollback`,
+      `rails migrate:rollback`,
+      `rails rollback_migration`,
+      `rollback rails migration`,
+    ],
+    code: ``,
+    correctAnswer: `rake db:rollback`,
+    type: `Ruby`,
+  },
+  {
+    question: `In Rails, what is the purpose of the "before_action" callback in a controller?`,
+    options: [
+      `To define associations between models`,
+      `To handle file uploads before processing a request`,
+      `To set up authentication for specific actions`,
+      `To execute a method before certain controller actions`,
+    ],
+    code: ``,
+    correctAnswer: `To execute a method before certain controller actions`,
+    type: `Ruby`,
+  },
+  {
+    question: `Which Rails command is used to generate a new model with its associated migration and unit test file?`,
+    options: [
+      `rails generate model`,
+      `rake db:new_model`,
+      `rails new_model`,
+      `model generate rails`,
+    ],
+    code: ``,
+    correctAnswer: `rails generate model`,
+    type: `Ruby`,
+  },
+  {
+    question: `What is the purpose of the "belongs_to" association in Rails models?`,
+    options: [
+      `To define a one-to-many association`,
+      `To define a many-to-many association`,
+      `To define a one-to-one association`,
+      `To define a polymorphic association`,
+    ],
+    code: ``,
+    correctAnswer: `To define a one-to-many association`,
+    type: `Ruby`,
+  },
+  {
+    question: `Which directory contains the view templates in a Rails application?`,
+    options: [`app/controllers`, `app/models`, `app/views`, `app/helpers`],
+    code: ``,
+    correctAnswer: `app/views`,
+    type: `Ruby`,
+  },
+  {
+    question: `Which Rails command is used to generate a new migration that creates a new table?`,
+    options: [
+      `rails generate table`,
+      `rake db:new_table`,
+      `rails new_migration`,
+      `rails generate migration`,
+    ],
+    code: ``,
+    correctAnswer: `rails generate migration`,
+    type: `Ruby`,
+  },
+  {
+    question: `What is the purpose of the Rails helper_method in a controller?`,
+    options: [
+      `To define methods accessible in views`,
+      `To handle file uploads`,
+      `To define associations between models`,
+      `To define before filters for authentication`,
+    ],
+    code: ``,
+    correctAnswer: `To define methods accessible in views`,
+    type: `Ruby`,
+  },
+  {
+    question: `In Rails, what is the purpose of a scope in a model?`,
+    options: [
+      `To define associations between models`,
+      `To handle file uploads`,
+      `To define reusable query conditions`,
+      `To manage user authentication`,
+    ],
+    code: ``,
+    correctAnswer: `To define reusable query conditions`,
+    type: `Ruby`,
+  },
+  {
+    question: `What is the purpose of the Rails callback "after_save" in a model?`,
+    options: [
+      `To handle file uploads after saving a record`,
+      `To set up authentication after saving a record`,
+      `To define associations between models`,
+      `To execute a method after saving a record`,
+    ],
+    code: ``,
+    correctAnswer: `To execute a method after saving a record`,
+    type: `Ruby`,
+  },
+  {
+    question: `Which command is used to generate a new Rails migration that renames a column in a table?`,
+    options: [
+      `rails generate column_rename`,
+      `rake db:rename_column`,
+      `rails rename_column`,
+      `rails generate migration`,
+    ],
+    code: ``,
+    correctAnswer: `rails generate migration`,
+    type: `Ruby`,
+  },
+  {
+    question: `What is the purpose of the Rails asset pipeline manifest file, application.js?`,
+    options: [
+      `To manage user authentication logic`,
+      `To define database schema migrations`,
+      `To compile and serve JavaScript files`,
+      `To handle file uploads`,
+    ],
+    code: ``,
+    correctAnswer: `To compile and serve JavaScript files`,
+    type: `Ruby`,
+  },
+  {
+    question: `Which command is used to generate a new Rails migration that adds an index to a table column?`,
+    options: [
+      `rails generate index`,
+      `rake db:add_index`,
+      `rails add_index`,
+      `rails generate migration`,
+    ],
+    code: ``,
+    correctAnswer: `rails generate migration`,
+    type: `Ruby`,
+  },
+  {
+    question: `In Rails, what is the purpose of the "has_many :through" association?`,
+    options: [
+      `To define a one-to-one association`,
+      `To define a many-to-many association with additional attributes`,
+      `To define a one-to-many association`,
+      `To define a polymorphic association`,
+    ],
+    code: ``,
+    correctAnswer: `To define a many-to-many association with additional attributes`,
+    type: `Ruby`,
+  },
+  {
+    question: `Which Rails command is used to generate a new controller with RESTful actions only?`,
+    options: [
+      `rails generate controller`,
+      `rails new_controller`,
+      `scaffold rails controller`,
+      `rails generate scaffold_controller`,
+    ],
+    code: ``,
+    correctAnswer: `rails generate scaffold_controller`,
+    type: `Ruby`,
+  },
+  {
+    question: `What is the purpose of the Rails gemfile.lock file?`,
+    options: [
+      `To store database credentials`,
+      `To manage application dependencies and their specific versions`,
+      `To define routes and URL mappings`,
+      `To configure the application's server settings`,
+    ],
+    code: ``,
+    correctAnswer: `To manage application dependencies and their specific versions`,
+    type: `Ruby`,
+  },
+  {
+    question: `Which Rails command is used to generate a new migration that removes a column from a table?`,
+    options: [
+      `rails remove_column`,
+      `rake db:remove_column`,
+      `rails generate migration remove_column`,
+      `rails generate migration`,
+    ],
+    code: ``,
+    correctAnswer: `rails generate migration remove_column`,
+    type: `Ruby`,
+  },
+  {
+    question: `What is the purpose of the Rails "concerns" directory in the app folder?`,
+    options: [
+      `To store JavaScript, CSS, and image files`,
+      `To handle user authentication logic`,
+      `To define reusable modules and shared behavior`,
+      `To store database configuration files`,
+    ],
+    code: ``,
+    correctAnswer: `To define reusable modules and shared behavior`,
+    type: `Ruby`,
+  },
+  {
+    question: `What is the correct way to define a route for the "show" action of a "Posts" controller in Rails?`,
+    options: [
+      `get '/posts/show', to: 'posts#show'`,
+      `get '/posts/:id', to: 'posts#show'`,
+      `post '/posts', to: 'posts#show'`,
+      `get '/posts/:id/show', to: 'posts#show'`,
+    ],
+    code: ``,
+    correctAnswer: `get '/posts/:id', to: 'posts#show'`,
+    type: `Ruby`,
+  },
+  {
+    question: `In a Rails controller, what is the correct way to retrieve a single record from the database based on its ID?`,
+    options: [
+      `@record = Record.find_by_id(params[:id])`,
+      `@record = Record.find_by(params[:id])`,
+      `@record = Record.find(params[:id])`,
+      `@record = Record.where(id: params[:id]).first`,
+    ],
+    code: ``,
+    correctAnswer: `@record = Record.find(params[:id])`,
+    type: `Ruby`,
+  },
+  {
+    question: `In a Rails view, how would you output the value of a variable name within a paragraph tag?`,
+    options: [
+      `<p><%= name %></p>`,
+      `<p><% name %></p>`,
+      `<p><%= @name %></p>`,
+      `<p><% @name %></p>`,
+    ],
+    code: ``,
+    correctAnswer: `<p><%= name %></p>`,
+    type: `Ruby`,
+  },
+  {
+    question: `What is the correct way to define a one-to-many association between a "User" model and a "Post" model in Rails?`,
+    options: [
+      `In the "User" model: has_many :posts and in the "Post" model: belongs_to :user`,
+      `In the "User" model: belongs_to :posts and in the "Post" model: has_one :user`,
+      `In the "User" model: has_one :posts and in the "Post" model: belongs_to :user`,
+      `In the "User" model: belongs_to_many :posts and in the "Post" model: has_many :users`,
+    ],
+    code: ``,
+    correctAnswer: `In the "User" model: has_many :posts and in the "Post" model: belongs_to :user`,
+    type: `Ruby`,
+  },
+  {
+    question: `In a Rails form, what is the correct way to create a text field for a model attribute named email?`,
+    options: [
+      `<%= form.text_field :email %>`,
+      `<%= form.email_field :email %>`,
+      `<%= form.text_area :email %>`,
+      `<%= form.field :email %>`,
+    ],
+    code: ``,
+    correctAnswer: `<%= form.text_field :email %>`,
+    type: `Ruby`,
+  },
+  {
+    question: `In Rails, what is the correct way to define a route for creating a new resource in the "Posts" controller?`,
+    options: [
+      `post '/posts/new', to: 'posts#new'`,
+      `get '/posts/create', to: 'posts#create'`,
+      `get '/posts/new', to: 'posts#new'`,
+      `post '/posts', to: 'posts#create'`,
+    ],
+    code: ``,
+    correctAnswer: `post '/posts', to: 'posts#create'`,
+    type: `Ruby`,
+  },
+  {
+    question: `In a Rails controller, how would you redirect the user to the "show" page of a specific post after it is created?`,
+    options: [
+      `redirect_to post_path(@post)`,
+      `redirect_to show_post_path(@post)`,
+      `redirect_to posts_path(@post)`,
+      `redirect_to :show_post`,
+    ],
+    code: ``,
+    correctAnswer: `redirect_to post_path(@post)`,
+    type: `Ruby`,
+  },
+  {
+    question: `In a Rails view, how would you display a link that deletes a specific post when clicked?`,
+    options: [
+      `<%= link_to 'Delete', post_path(@post), method: :delete %>`,
+      `<%= link_to 'Delete', delete_post_path(@post) %>`,
+      `<%= link_to 'Delete', destroy_post_path(@post) %>`,
+      `<%= link_to 'Delete', post_delete_path(@post) %>`,
+    ],
+    code: ``,
+    correctAnswer: `<%= link_to 'Delete', post_path(@post), method: :delete %>`,
+    type: `Ruby`,
+  },
+  {
+    question: `What is the correct way to define a many-to-many association between a "User" model and a "Role" model in Rails?`,
+    options: [
+      `In the "User" model: has_and_belongs_to_many :roles and in the "Role" model: has_and_belongs_to_many :users`,
+      `In the "User" model: has_many :roles and in the "Role" model: belongs_to :user`,
+      `In the "User" model: belongs_to_many :roles and in the "Role" model: has_many :users`,
+      `In the "User" model: has_one :roles and in the "Role" model: belongs_to :user`,
+    ],
+    code: ``,
+    correctAnswer: `In the "User" model: has_and_belongs_to_many :roles and in the "Role" model: has_and_belongs_to_many :users`,
+    type: `Ruby`,
+  },
+  {
+    question: `In a Rails form, what is the correct way to create a select dropdown field for a model attribute named category with options "A", "B", and "C"?`,
+    options: [
+      `<%= form.select :category, ['A', 'B', 'C'] %>`,
+      `<%= form.dropdown :category, ['A', 'B', 'C'] %>`,
+      `<%= form.select_field :category, ['A', 'B', 'C'] %>`,
+      `<%= form.dropdown_field :category, ['A', 'B', 'C'] %>`,
+    ],
+    code: ``,
+    correctAnswer: `<%= form.select :category, ['A', 'B', 'C'] %>`,
+    type: `Ruby`,
+  },
+  {
+    question: `What is lazy loading in Ruby on Rails?`,
+    options: [
+      `Loading database records only when they are explicitly requested`,
+      `Loading database records eagerly to improve performance`,
+      `Loading JavaScript and CSS files asynchronously`,
+      `Loading associated models along with the parent model in a single query`,
+    ],
+    code: ``,
+    correctAnswer: `Loading database records only when they are explicitly requested`,
+    type: `Ruby`,
+  },
+  {
+    question: `What is eager loading in Ruby on Rails?`,
+    options: [
+      `Loading database records only when they are explicitly requested`,
+      `Loading database records eagerly to improve performance`,
+      `Loading JavaScript and CSS files asynchronously`,
+      `Loading associated models along with the parent model in a single query`,
+    ],
+    code: ``,
+    correctAnswer: `Loading database records eagerly to improve performance`,
+    type: `Ruby`,
+  },
+  {
+    question: `In Ruby on Rails, what does the direct superclass refer to?`,
+    options: [
+      `The class from which the current class directly inherits`,
+      `The parent class of the super class`,
+      `The class that is inherited indirectly through multiple levels of inheritance`,
+      `The class that is included using the extend directive`,
+    ],
+    code: ``,
+    correctAnswer: `The class from which the current class directly inherits`,
+    type: `Ruby`,
+  },
+  {
+    question: `In Ruby on Rails, what does the extend directive do?`,
+    options: [
+      `It includes a module into a class`,
+      `It defines a class method within a module`,
+      `It inherits from a superclass`,
+      `It includes an instance method from another class`,
+    ],
+    code: ``,
+    correctAnswer: `It defines a class method within a module`,
+    type: `Ruby`,
+  },
+  {
+    question: `What will be displayed on the page when the UsersController's index action is accessed?`,
+    options: [
+      `An error message`,
+      `"User List" as a heading followed by a list of user names`,
+      `An empty page with only the "User List" heading`,
+      `None of the above`,
+    ],
+    code: `# app/controllers/users_controller.rb
+class UsersController < ApplicationController
+def index
+@users = User.all
+end
+end
+
+# app/views/users/index.html.erb
+<h1>User List</h1>
+<% @users.each do |user| %>
+<p><%= user.name %></p>
+<% end %>`,
+    correctAnswer: `"User List" as a heading followed by a list of user names`,
+    type: `Ruby`,
+  },
+  {
+    question: `What will be displayed on the page when the PostsController's show action is accessed for a valid id?`,
+    options: [
+      `An error message`,
+      `The title and content of the post`,
+      `An empty page`,
+      `None of the above`,
+    ],
+    code: `# app/controllers/posts_controller.rb
+class PostsController < ApplicationController
+def show
+@post = Post.find(params[:id])
+end
+end
+
+# app/views/posts/show.html.erb
+<h1><%= @post.title %></h1>
+<p><%= @post.content %></p>`,
+    correctAnswer: `The title and content of the post`,
+    type: `Ruby`,
+  },
+  {
+    question: `What will be displayed on the page when the EventsController's show action is accessed for a valid id?`,
+    options: [
+      `An error message`,
+      `The title of the event`,
+      `The start time of the event in the format "Month Day, Year"`,
+      `None of the above`,
+    ],
+    code: `# app/controllers/events_controller.rb
+class EventsController < ApplicationController
+def show
+@event = Event.find(params[:id])
+end
+end
+
+# app/views/events/show.html.erb
+<h1><%= @event.title %></h1>
+<p><%= @event.start_time.strftime("%B %d, %Y") %></p>`,
+    correctAnswer: `The start time of the event in the format "Month Day, Year"`,
+    type: `Ruby`,
+  },
+  {
+    question: `Consider the below Ruby on Rails code snippet. Which action is responsible for displaying a single post and its author?`,
+    options: [
+      `index action in the PostsController`,
+      `show action in the PostsController`,
+      `create action in the PostsController`,
+      `None of the above`,
+    ],
+    code: `# app/models/user.rb
+class User < ApplicationRecord
+has_many :posts
+end
+
+# app/models/post.rb
+class Post < ApplicationRecord
+belongs_to :user
+validates :title, presence: true
+end
+
+# app/controllers/posts_controller.rb
+class PostsController < ApplicationController
+def show
+@post = Post.find(params[:id])
+@user = @post.user
+end
+end
+
+# app/views/posts/show.html.erb
+<h1><%= @post.title %></h1>
+<p><%= @post.content %></p>
+<p>Author: <%= @user.name %></p>`,
+    correctAnswer: `show action in the PostsController`,
+    type: `Ruby`,
+  },
+  {
+    question: `Consider the below Ruby on Rails code snippet. What does the code do?`,
+    options: [
+      `Retrieves the total number of users from the database and assigns it to the @count variable.`,
+      `Assigns the value of User.count to the @count variable.`,
+      `Assigns the value of count attribute of the current user to the @count variable.`,
+      `None of the above.`,
+    ],
+    code: `@count = User.count`,
+    correctAnswer: `Assigns the value of User.count to the @count variable.`,
+    type: `Ruby`,
+  },
+  {
+    question: `Consider the below Ruby on Rails code snippet. What does the code do?`,
+    options: [
+      `Renders a JSON response with the message "Hello, World!".`,
+      `Redirects to the "Hello, World!" page.`,
+      `Raises an error with the message "Hello, World!".`,
+      `None of the above.`,
+    ],
+    code: `render json: { message: "Hello, World!" }`,
+    correctAnswer: `Renders a JSON response with the message "Hello, World!".`,
+    type: `Ruby`,
+  },
+  {
+    question: `Consider the below Ruby on Rails code snippet. What does the code do?`,
+    options: [
+      `Retrieves the 5 most recent published posts along with their associated users, ordered by creation time in descending order, and assigns them to the @posts variable.`,
+      `Retrieves all posts along with their associated users, ordered by creation time in descending order, and limits the result to 5 records, assigning them to the @posts variable.`,
+      `Retrieves the 5 most recent published posts, ordered by creation time in descending order, and assigns them to the @posts variable.`,
+      `None of the above.`,
+    ],
+    code: `@posts = Post.includes(:user).where(published: true).order(created_at: :desc).limit(5)`,
+    correctAnswer: `Retrieves the 5 most recent published posts along with their associated users, ordered by creation time in descending order, and assigns them to the @posts variable.`,
+    type: `Ruby`,
+  },
+  {
+    question: `Consider the below Ruby on Rails code snippet. What does the code do?`,
+    options: [
+      `Retrieves all users who have at least one published post, removing any duplicates, and assigns them to the @users variable.`,
+      `Retrieves all users who have published posts, including duplicates, and assigns them to the @users variable.`,
+      `Retrieves all published posts along with their associated users, removing any duplicates, and assigns them to the @users variable.`,
+      `None of the above.`,
+    ],
+    code: `@users = User.joins(:posts).where("posts.published = ?", true).distinct`,
+    correctAnswer: `Retrieves all users who have at least one published post, removing any duplicates, and assigns them to the @users variable.`,
+    type: `Ruby`,
+  },
+  {
+    question: `Consider the below Ruby on Rails code snippet. What will be displayed in the console when this code is executed?`,
+    options: [
+      `The title of the latest post.`,
+      `An error message.`,
+      `An empty line.`,
+      `None of the above.`,
+    ],
+    code: ``,
+    correctAnswer: `The title of the latest post.`,
+    type: `Ruby`,
   },
 ];
 

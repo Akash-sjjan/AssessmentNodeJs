@@ -157,15 +157,15 @@ app.get("/questions", validateToken, async (req, res) => {
 
   let questionsToSend = [];
 
-  const codeQuestions = await Question.find({
-    type: questionType,
-    code: { $ne: "" },
-  }).select("-correctAnswer");
-  questionsToSend = questionsToSend.concat(
-    codeQuestions.sort(() => 0.5 - Math.random()).slice(0, 3)
-  );
-
   if (questionType === "ReactNative" || questionType === "ReactJs") {
+    const codeQuestions = await Question.find({
+      type: questionType,
+      code: { $ne: "" },
+    }).select("-correctAnswer");
+    questionsToSend = questionsToSend.concat(
+      codeQuestions.sort(() => 0.5 - Math.random()).slice(0, 3)
+    );
+
     const tsQuestions = await Question.find({ type: "TypeScript" }).select(
       "-correctAnswer"
     );
@@ -179,15 +179,29 @@ app.get("/questions", validateToken, async (req, res) => {
     questionsToSend = questionsToSend.concat(
       jsQuestions.sort(() => 0.5 - Math.random()).slice(0, 5)
     );
+    const remainingQuestions = await Question.find({
+      type: questionType,
+      code: "",
+    }).select("-correctAnswer");
+    questionsToSend = questionsToSend.concat(
+      remainingQuestions.sort(() => 0.5 - Math.random()).slice(0, 12)
+    );
+  } else if (questionType === "Ruby") {
+    const codeQuestions = await Question.find({
+      type: questionType,
+      code: { $ne: "" },
+    }).select("-correctAnswer");
+    questionsToSend = questionsToSend.concat(
+      codeQuestions.sort(() => 0.5 - Math.random()).slice(0, 3)
+    );
+    const remainingQuestions = await Question.find({
+      type: questionType,
+      code: "",
+    }).select("-correctAnswer");
+    questionsToSend = questionsToSend.concat(
+      remainingQuestions.sort(() => 0.5 - Math.random()).slice(0, 22)
+    );
   }
-
-  const remainingQuestions = await Question.find({
-    type: questionType,
-    code: "",
-  }).select("-correctAnswer");
-  questionsToSend = questionsToSend.concat(
-    remainingQuestions.sort(() => 0.5 - Math.random()).slice(0, 12)
-  );
 
   // Shuffle all the questions together
   questionsToSend = questionsToSend.sort(() => 0.5 - Math.random());
@@ -246,7 +260,7 @@ app.post("/answer", validateToken, async (req, res) => {
     const answersTable = answeredQuestionsToHtmlTable(answeredQuestions);
 
     const email = {
-      to: ["hr@cognitiveclouds.com", "praveen@cognitiveclouds.com"],
+      to: [process.env.EMAIL1, process.env.EMAIL2],
       from: "assessment@cognitiveclouds.com",
       subject: ` ${user.nickname} - React Native MCQ Test Result`,
       html: `${user.nickname} has scored ${score}/${count}. Here are the responses given by ${user.firstName}: ${answersTable}`,
