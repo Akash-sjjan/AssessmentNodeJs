@@ -292,6 +292,7 @@ app.post("/answer", validateToken, async (req, res) => {
         res.status(500).json({
           success: false,
           message: "An error occurred while trying to send the email",
+          error:error
         });
       });
   } catch (error) {
