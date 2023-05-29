@@ -260,7 +260,7 @@ app.post("/answer", validateToken, async (req, res) => {
     const answersTable = answeredQuestionsToHtmlTable(answeredQuestions);
 
     const email = {
-      to: [process.env.EMAIL1, process.env.EMAIL2],
+      to: [process.env.EMAIL1, process.env.EMAIL2, process.env.EMAIL3],
       from: "assessment@cognitiveclouds.com",
       subject: ` ${user.nickname} - React Native MCQ Test Result`,
       html: `${user.nickname} has scored ${score}/${count}. Here are the responses given by ${user.firstName}: ${answersTable}`,
