@@ -257,6 +257,11 @@ app.post("/answer", validateToken, async (req, res) => {
       });
     }
 
+    user.totalScore += score;
+    user.Answers = answers;
+    // Then save the user
+    await user.save();
+
     const answersTable = answeredQuestionsToHtmlTable(answeredQuestions);
 
     const email = {
@@ -292,7 +297,7 @@ app.post("/answer", validateToken, async (req, res) => {
         res.status(500).json({
           success: false,
           message: "An error occurred while trying to send the email",
-          error:error
+          error: error,
         });
       });
   } catch (error) {
