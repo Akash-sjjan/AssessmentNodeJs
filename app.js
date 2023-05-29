@@ -260,6 +260,7 @@ app.post("/answer", validateToken, async (req, res) => {
     }
 
     user.totalScore = score;
+    user.testCompleted = true;
     // user.answers = answeredQuestions;
     user.save().catch((error) => {
       console.error(`Error saving user: ${error}`);
