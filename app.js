@@ -142,7 +142,11 @@ app.post("/login", async (req, res) => {
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h", // Token Expiry set to 1 hour
     });
-    res.json({ message: "User logged in successfully", token });
+    res.json({
+      message: "User logged in successfully",
+      token,
+      admin: user.admin,
+    });
   } else {
     res.status(401).json({ message: "Invalid credentials" });
   }
@@ -208,8 +212,6 @@ app.get("/questions", validateToken, async (req, res) => {
 
   res.json(questionsToSend);
 });
-
-
 
 app.post("/answer", validateToken, async (req, res) => {
   if (typeof req.body !== "object" || req.body === null) {
@@ -397,71 +399,73 @@ app.post("/createuser", async (req, res) => {
   }
 });
 
-app.get('/getResults', validateToken, async (req, res) => {
+app.get("/getResults", validateToken, async (req, res) => {
   const userEmail = req.query.email; // extract email from query params
 
-  if(!userEmail) {
-      return res.status(400).json({ error: 'Missing email parameter' });
+  if (!userEmail) {
+    return res.status(400).json({ error: "Missing email parameter" });
   }
 
   try {
-      const user = await User.findOne({ email: userEmail });
+    const user = await User.findOne({ email: userEmail });
 
-      if(!user) {
-          return res.status(404).json({ error: 'User not found' });
-      }
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
 
-      return res.status(200).json(user);
+    return res.status(200).json(user);
   } catch (error) {
-      console.error(error);
-      res.status(500).json({
-          success: false,
-          message: 'An unexpected error occurred',
-      });
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "An unexpected error occurred",
+    });
   }
 });
 
-app.post('/changePassword', validateToken, async (req, res) => {
+app.post("/changePassword", validateToken, async (req, res) => {
   const { currentPassword, newPassword } = req.body;
 
   if (!currentPassword || !newPassword) {
-      return res.status(400).json({ error: 'Missing current or new password' });
+    return res.status(400).json({ error: "Missing current or new password" });
   }
 
   try {
-      const user = await User.findById(req.user._id);
+    const user = await User.findById(req.user._id);
 
-      if (!user) {
-          return res.status(404).json({ error: 'User not found' });
-      }
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
 
-      // check if current password is correct
-      const isMatch = await user.comparePassword(currentPassword);
+    // check if current password is correct
+    const isMatch = await user.comparePassword(currentPassword);
 
-      if (!isMatch) {
-          return res.status(400).json({ error: 'Current password is incorrect' });
-      }
+    if (!isMatch) {
+      return res.status(400).json({ error: "Current password is incorrect" });
+    }
 
-      // update the password
-      user.password = newPassword;
+    // update the password
+    user.password = newPassword;
 
-      // hash the new password before saving
-      user.save().catch((error) => {
-          console.error(`Error saving user: ${error}`);
-          return res.status(500).json({ error: 'Error updating user' });
-      });
+    // hash the new password before saving
+    user.save().catch((error) => {
+      console.error(`Error saving user: ${error}`);
+      return res
+        .status(500)
+        .json({ message: "Error updating user", error: error });
+    });
 
-      return res.status(200).json({ success: true, message: 'Password changed successfully!' });
+    return res
+      .status(200)
+      .json({ success: true, message: "Password changed successfully!" });
   } catch (error) {
-      console.error(error);
-      res.status(500).json({
-          success: false,
-          message: 'An unexpected error occurred',
-      });
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "An unexpected error occurred",
+    });
   }
 });
-
-
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

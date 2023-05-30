@@ -16,6 +16,10 @@ const UserSchema = new Schema({
     type: Number,
     default: false, // by default, user has not completed the test
   },
+  admin: {
+    type: Boolean,
+    default: false, // by default, user has not completed the test
+  },
   answers: [{
     question: {
       type: String,
