@@ -192,14 +192,14 @@ app.get("/questions", validateToken, async (req, res) => {
       code: { $ne: "" },
     }).select("-correctAnswer");
     questionsToSend = questionsToSend.concat(
-      codeQuestions.sort(() => 0.5 - Math.random()).slice(0, 3)
+      codeQuestions.sort(() => 0.5 - Math.random()).slice(0, 5)
     );
     const remainingQuestions = await Question.find({
       type: questionType,
       code: "",
     }).select("-correctAnswer");
     questionsToSend = questionsToSend.concat(
-      remainingQuestions.sort(() => 0.5 - Math.random()).slice(0, 22)
+      remainingQuestions.sort(() => 0.5 - Math.random()).slice(0, 20)
     );
   }
 
