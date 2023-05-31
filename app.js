@@ -8,6 +8,9 @@ const sgMail = require("@sendgrid/mail");
 const csvParser = require("csv-parser");
 const fs = require("fs");
 const file = require("./AssessQuestions.js");
+const AdminBro = require("admin-bro");
+const AdminBroExpress = require("@admin-bro/express");
+const AdminBroMongoose = require("@admin-bro/mongoose");
 
 // Required Environment Variables
 const requiredEnv = ["MONGODB_URI", "SENDGRID_API_KEY", "JWT_SECRET", "PORT"];
@@ -26,6 +29,32 @@ const port = process.env.PORT || 3000;
 const User = require("./models/User");
 const Question = require("./models/Question");
 
+// Use AdminBro Mongoose adapter
+AdminBro.registerAdapter(AdminBroMongoose);
+
+// Create new AdminBro instance
+const adminBro = new AdminBro({
+  databases: [mongoose],
+  resources: [User, Question],
+  rootPath: "/admin",
+});
+
+const auth = {
+  authenticate: async (email, password) => {
+    const user = await User.findOne({ email });
+    if (user && (await user.comparePassword(password)) && user.admin) {
+      return user;
+    }
+    return null;
+  },
+  cookiePassword: "some-secret-password-used-for-cookie-encryption",
+  cookieName: "optional-cookie-name",
+};
+
+// Create router for AdminBro and add it to express routes
+const router = AdminBroExpress.buildAuthenticatedRouter(adminBro, auth);
+app.use(adminBro.options.rootPath, router);
+
 // Setting SendGrid API Key
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -42,7 +71,7 @@ mongoose
 
     // Clear the Question collection before importing new data
     try {
-      await Question.deleteMany({});
+      // await Question.deleteMany({});
       console.log("Questions cleared from MongoDB");
     } catch (err) {
       console.error("Could not clear questions from MongoDB", err);
@@ -50,18 +79,18 @@ mongoose
 
     // Import questions from Assessment object
     try {
-      for (const item of file.AssessQuestions) {
-        const question = new Question({
-          question: item.question,
-          options: item.options,
-          correctAnswer: item.correctAnswer,
-          code: item.code,
-          type: item.type,
-        });
+      // for (const item of file.AssessQuestions) {
+      //   const question = new Question({
+      //     question: item.question,
+      //     options: item.options,
+      //     correctAnswer: item.correctAnswer,
+      //     code: item.code,
+      //     type: item.type,
+      //   });
 
-        console.log(question);
-        await question.save();
-      }
+      //   console.log(question);
+      //   await question.save();
+      // }
 
       console.log("Assessment questions successfully processed");
     } catch (error) {
@@ -85,40 +114,6 @@ function validateToken(req, res, next) {
     res.sendStatus(401);
   }
 }
-
-// app.post("/signup", async (req, res) => {
-//   const { email, password, phone, firstName, lastName } = req.body;
-
-//   // Validate request body
-//   if (!email || !password || !phone || !firstName || !lastName) {
-//     return res.status(400).json({ error: "All fields are required" });
-//   }
-
-//   // Check if user with given email already exists
-//   const existingUser = await User.findOne({ email });
-//   if (existingUser) {
-//     return res
-//       .status(400)
-//       .json({ error: "User with given email already exists" });
-//   }
-
-//   // Hash password and create user
-//   try {
-//     const hashedPassword = await bcrypt.hash(password, 10);
-//     const user = new User({
-//       email,
-//       password: hashedPassword,
-//       phone,
-//       firstName,
-//       lastName,
-//     });
-
-//     await user.save();
-//     res.json({ message: "User signed up successfully" });
-//   } catch (error) {
-//     res.status(500).json({ error: "Error creating user" });
-//   }
-// });
 
 app.post("/login", async (req, res) => {
   const { email, password, nickname } = req.body;
@@ -235,10 +230,21 @@ app.post("/answer", validateToken, async (req, res) => {
     // fetch only answered questions from the database
     const allQuestions = await Question.find({ _id: { $in: questionIds } });
 
+    if (allQuestions.length !== questionIds.length) {
+      return res.status(400).json({ error: "Some question IDs are invalid" });
+    }
+
     for (let question of allQuestions) {
-      let userAnswer = answers[question._id]
-        ? answers[question._id].choosenAnswer
-        : "No answer";
+      if (
+        !answers[question._id] ||
+        typeof answers[question._id].choosenAnswer !== "string"
+      ) {
+        return res
+          .status(400)
+          .json({ error: "Invalid request body structure" });
+      }
+
+      let userAnswer = answers[question._id].choosenAnswer;
 
       if (userAnswer !== "No answer") {
         count = count + 1;
@@ -248,9 +254,7 @@ app.post("/answer", validateToken, async (req, res) => {
     console.log("count", count);
 
     for (let question of allQuestions) {
-      let userAnswer = answers[question._id]
-        ? answers[question._id].choosenAnswer
-        : "No answer";
+      let userAnswer = answers[question._id].choosenAnswer;
       let isCorrect = false;
       if (question.correctAnswer === userAnswer) {
         score++;
@@ -268,16 +272,19 @@ app.post("/answer", validateToken, async (req, res) => {
     user.totalScore = score;
     user.testCompleted = true;
     user.answers = answeredQuestions;
-    user.save().catch((error) => {
+
+    try {
+      await user.save();
+    } catch (error) {
       console.error(`Error saving user: ${error}`);
       return res.status(500).json({
         error: "Error updating user",
       });
-    });
+    }
 
     res.status(200).json({
       success: true,
-      message: "responce saved successfully!",
+      message: "Response saved successfully!",
       score,
       firstName: user.firstName,
       lastName: user.lastName,
