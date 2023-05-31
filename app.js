@@ -11,6 +11,7 @@ const file = require("./AssessQuestions.js");
 const AdminBro = require("admin-bro");
 const AdminBroExpress = require("@admin-bro/express");
 const AdminBroMongoose = require("@admin-bro/mongoose");
+const session = require('express-session');
 
 // Required Environment Variables
 const requiredEnv = ["MONGODB_URI", "SENDGRID_API_KEY", "JWT_SECRET", "PORT"];
