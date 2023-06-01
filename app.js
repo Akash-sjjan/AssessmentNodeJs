@@ -11,7 +11,7 @@ const file = require("./AssessQuestions.js");
 const AdminBro = require("admin-bro");
 const AdminBroExpress = require("@admin-bro/express");
 const AdminBroMongoose = require("@admin-bro/mongoose");
-const session = require('express-session');
+const session = require("express-session");
 
 // Required Environment Variables
 const requiredEnv = ["MONGODB_URI", "SENDGRID_API_KEY", "JWT_SECRET", "PORT"];
@@ -117,7 +117,7 @@ function validateToken(req, res, next) {
 }
 
 app.post("/login", async (req, res) => {
-  const { email, password, nickname } = req.body;
+  const { email, password, nickname, userEmail } = req.body;
   const user = await User.findOne({ email });
 
   if (!user) {
@@ -131,8 +131,9 @@ app.post("/login", async (req, res) => {
   }
 
   if (await bcrypt.compare(password, user.password)) {
-    // Update the user's nickname
+    // Update the user's nickname and userEmail
     user.nickname = nickname;
+    user.userEmail = userEmail;
     await user.save();
 
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
@@ -384,15 +385,24 @@ app.post("/createuser", async (req, res) => {
   }
 });
 
-app.get("/getResults", validateToken, async (req, res) => {
-  const userEmail = req.query.email; // extract email from query params
+app.post("/getResults", validateToken, async (req, res) => {
+  const { type, value } = req.body; // extract type and value from body
 
-  if (!userEmail) {
-    return res.status(400).json({ error: "Missing email parameter" });
+  if (!type || !value) {
+    return res.status(400).json({ error: "Missing type or value parameter" });
+  }
+
+  if (type !== "email" && type !== "userEmail") {
+    return res.status(400).json({ error: "Invalid type parameter" });
   }
 
   try {
-    const user = await User.findOne({ email: userEmail });
+    let user = null;
+    if (type === "email") {
+      user = await User.findOne({ email: value });
+    } else if (type === "userEmail") {
+      user = await User.findOne({ userEmail: value });
+    }
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });

@@ -10,6 +10,7 @@ const UserSchema = new Schema({
   firstName: String,
   lastName: String,
   nickname: { type: String }, // new field
+  userEmail: { type: String }, // new field
   testCompleted: {
     type: Boolean,
     default: false, // by default, user has not completed the test
