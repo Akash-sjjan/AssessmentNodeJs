@@ -389,7 +389,7 @@ app.post("/getResults", validateToken, async (req, res) => {
   const { type, value } = req.body; // extract type and value from body
 
   if (!type || !value) {
-    return res.status(400).json({ error: "Missing type or value parameter" });
+    return res.status(400).json({ error: "Missing email or type parameter" });
   }
 
   if (type !== "email" && type !== "userEmail") {
