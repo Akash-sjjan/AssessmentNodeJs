@@ -462,6 +462,7 @@ app.post("/changePassword", validateToken, async (req, res) => {
   if (!currentPassword || !newPassword) {
     return res.status(400).json({ error: "Missing current or new password" });
   }
+  
 
   try {
     const user = await User.findById(req.user._id);
