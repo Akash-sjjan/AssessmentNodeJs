@@ -185,6 +185,7 @@ app.post("/login", async (req, res) => {
 
 app.get("/questions", validateToken, async (req, res) => {
   const questionType = req.query.questionType;
+  const user = await User.findById(req.user._id);
 
   if (!questionType) {
     return res.status(400).json({ error: "QuestionType is required" });
@@ -240,7 +241,8 @@ app.get("/questions", validateToken, async (req, res) => {
 
   // Shuffle all the questions together
   questionsToSend = questionsToSend.sort(() => 0.5 - Math.random());
-
+  user.lastVisited = new Date();
+  await user.save(); // Save user object after modification
   res.json(questionsToSend);
 });
 
@@ -550,6 +552,19 @@ app.post("/resetPassword", async (req, res) => {
     return res.status(200).json({ message: "Password reset successful" });
   } catch (error) {
     res.status(500).json({ message: "Error processing request" });
+  }
+});
+
+app.get("/healthcheck", async (req, res) => {
+  try {
+    // Here you can check the status of your service or database
+    // For example, if you're using mongoose you can do something like this:
+    await mongoose.connection.db.admin().ping();
+
+    res.status(200).json({ status: "Healthy" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ status: "Unhealthy", error: error.toString() });
   }
 });
 

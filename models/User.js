@@ -23,6 +23,10 @@ const UserSchema = new Schema({
     type: Boolean,
     default: false, // by default, user has not completed the test
   },
+  lastVisited: {
+    type: Date,
+    default: Date.now, // Default value is current date/time
+  },
   answers: [
     {
       question: {
