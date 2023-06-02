@@ -185,6 +185,7 @@ app.post("/login", async (req, res) => {
 
 app.get("/questions", validateToken, async (req, res) => {
   const questionType = req.query.questionType;
+  const user = await User.findById(req.user._id);
 
   if (!questionType) {
     return res.status(400).json({ error: "QuestionType is required" });
@@ -240,7 +241,8 @@ app.get("/questions", validateToken, async (req, res) => {
 
   // Shuffle all the questions together
   questionsToSend = questionsToSend.sort(() => 0.5 - Math.random());
-
+  user.lastVisited = new Date();
+  await user.save(); // Save user object after modification
   res.json(questionsToSend);
 });
 
