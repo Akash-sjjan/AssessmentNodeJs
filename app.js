@@ -116,6 +116,40 @@ function validateToken(req, res, next) {
   }
 }
 
+// app.post("/signup", async (req, res) => {
+//   const { email, password, phone, firstName, lastName } = req.body;
+
+//   // Validate request body
+//   if (!email || !password || !phone || !firstName || !lastName) {
+//     return res.status(400).json({ error: "All fields are required" });
+//   }
+
+//   // Check if user with given email already exists
+//   const existingUser = await User.findOne({ email });
+//   if (existingUser) {
+//     return res
+//       .status(400)
+//       .json({ error: "User with given email already exists" });
+//   }
+
+//   // Hash password and create user
+//   try {
+//     const hashedPassword = await bcrypt.hash(password, 10);
+//     const user = new User({
+//       email,
+//       password: hashedPassword,
+//       phone,
+//       firstName,
+//       lastName,
+//     });
+
+//     await user.save();
+//     res.json({ message: "User signed up successfully" });
+//   } catch (error) {
+//     res.status(500).json({ error: "Error creating user" });
+//   }
+// });
+
 app.post("/login", async (req, res) => {
   const { email, password, nickname, userEmail } = req.body;
   const user = await User.findOne({ email });
@@ -397,18 +431,18 @@ app.post("/getResults", validateToken, async (req, res) => {
   }
 
   try {
-    let user = null;
+    let users = [];
     if (type === "email") {
-      user = await User.findOne({ email: value });
+      users = await User.find({ email: value });
     } else if (type === "userEmail") {
-      user = await User.findOne({ userEmail: value });
+      users = await User.find({ userEmail: value });
     }
 
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
+    if (!users || users.length === 0) {
+      return res.status(404).json({ error: "No users found" });
     }
 
-    return res.status(200).json(user);
+    return res.status(200).json(users);
   } catch (error) {
     console.error(error);
     res.status(500).json({
@@ -442,13 +476,8 @@ app.post("/changePassword", validateToken, async (req, res) => {
     // update the password
     user.password = newPassword;
 
-    // hash the new password before saving
-    user.save().catch((error) => {
-      console.error(`Error saving user: ${error}`);
-      return res
-        .status(500)
-        .json({ message: "Error updating user", error: error });
-    });
+    // this allows 'save' middleware to run, hashing the password
+    await user.save();
 
     return res
       .status(200)
@@ -461,6 +490,65 @@ app.post("/changePassword", validateToken, async (req, res) => {
     });
   }
 });
+app.post("/forgotPassword", async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Generate reset token
+    const resetToken = crypto.randomBytes(32).toString("hex");
+
+    // Hash token and set to password reset token field
+    user.passwordResetToken = resetToken;
+
+    // Set token expire time to 1 hour from now
+    user.passwordResetExpires = Date.now() + 3600000;
+
+    await user.save();
+
+    // Send reset token to user via email (omitted for simplicity)
+    // You can use a library like nodemailer to send the token to the user's email address.
+
+    return res.status(200).json({ message: "Password reset token sent" });
+  } catch (error) {
+    res.status(500).json({ message: "Error processing request" , error:error});
+  }
+});
+app.post("/resetPassword", async (req, res) => {
+  const { resetToken, newPassword } = req.body;
+
+  if (!resetToken || !newPassword) {
+    return res.status(400).json({ error: "Missing token or new password" });
+  }
+
+  try {
+    const user = await User.findOne({
+      passwordResetToken: resetToken,
+      passwordResetExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res.status(400).json({ message: "Invalid or expired reset token" });
+    }
+
+    // Change the password and clear reset token fields
+    user.password = newPassword;
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+
+    await user.save();
+
+    return res.status(200).json({ message: "Password reset successful" });
+  } catch (error) {
+    res.status(500).json({ message: "Error processing request" });
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
