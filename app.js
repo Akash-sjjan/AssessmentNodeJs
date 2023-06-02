@@ -555,6 +555,19 @@ app.post("/resetPassword", async (req, res) => {
   }
 });
 
+app.get("/healthcheck", async (req, res) => {
+  try {
+    // Here you can check the status of your service or database
+    // For example, if you're using mongoose you can do something like this:
+    await mongoose.connection.db.admin().ping();
+
+    res.status(200).json({ status: "Healthy" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ status: "Unhealthy", error: error.toString() });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
