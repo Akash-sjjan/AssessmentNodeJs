@@ -15,6 +15,10 @@ const UserSchema = new Schema({
     type: Boolean,
     default: false, // by default, user has not completed the test
   },
+  isScreenShotTaken: {
+    type: Boolean,
+    default: false, // by default, user has not completed the test
+  },
   totalScore: {
     type: Number,
     default: false, // by default, user has not completed the test

@@ -36,7 +36,26 @@ AdminBro.registerAdapter(AdminBroMongoose);
 // Create new AdminBro instance
 const adminBro = new AdminBro({
   databases: [mongoose],
-  resources: [User, Question],
+  resources: [
+    {
+      resource: User,
+      options: {
+        sort: {
+          direction: "asc", // or 'asc' for ascending
+          sortBy: "lastVisited", // sorting User by lastVisited
+        },
+      },
+    },
+    {
+      resource: Question,
+      options: {
+        sort: {
+          direction: "asc",
+          sortBy: "question", // sorting Question by question
+        },
+      },
+    },
+  ],
   rootPath: "/admin",
 });
 
@@ -566,6 +585,40 @@ app.get("/healthcheck", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ status: "Unhealthy", error: error.toString() });
+  }
+});
+
+app.post("/Screenshot", validateToken, async (req, res) => {
+  if (typeof req.body !== "object" || req.body === null) {
+    return res.status(400).json({ error: "Invalid request body" });
+  }
+
+  try {
+    const user = await User.findById(req.user._id);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    user.isScreenShotTaken = true;
+
+    try {
+      await user.save();
+    } catch (error) {
+      console.error(`Error saving user: ${error}`);
+      return res.status(500).json({
+        error: "Error updating user",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "An unexpected error occurred",
+    });
   }
 });
 
