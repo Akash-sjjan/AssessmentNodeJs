@@ -406,7 +406,7 @@ app.post("/createuser", async (req, res) => {
   try {
     const createdUsers = [];
     for (let i = 0; i < 20; i++) {
-      const uniqueNumber = Math.floor(1000 + Math.random() * 9000);
+      const uniqueNumber = Math.floor(10000 + Math.random() * 9000);
 
       const email = `User${uniqueNumber}`;
       const password = generatePassword();
