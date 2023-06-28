@@ -406,9 +406,19 @@ app.post("/createuser", async (req, res) => {
   try {
     const createdUsers = [];
     for (let i = 0; i < 20; i++) {
-      const uniqueNumber = Math.floor(10000 + Math.random() * 9000);
+      let uniqueNumber = Math.floor(10000 + Math.random() * 9000);
 
-      const email = `User${uniqueNumber}`;
+      let email = `User${uniqueNumber}`;
+
+      // Check if email already exists
+      let userExists = await User.findOne({ email });
+      while (userExists) {
+        // If user exists, generate a new uniqueNumber and check again
+        uniqueNumber = Math.floor(10000 + Math.random() * 9000);
+        email = `User${uniqueNumber}`;
+        userExists = await User.findOne({ email });
+      }
+
       const password = generatePassword();
       const firstName = `User${uniqueNumber}`;
 
